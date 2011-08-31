@@ -89,25 +89,28 @@ public class Menu {
         Puerto origen = new Puerto("","","");
         Puerto destino = new Puerto("","","");
         ArrayList<Barco> temp = new ArrayList<Barco>();
-        Barco boat;
         
-        System.out.println("\tIngreso de Carga");
+        System.out.println("\tIngreso de Carga\n");
         System.out.println("Codigo de la Carga: ");
         codCarga = teclado.nextInt();
         System.out.println("Dueño de la Carga: ");
         dueño = teclado.next();
         System.out.println("Descripcion de la Carga: ");
         descripcion = teclado.next();
-        System.out.println("Peso de la Carga: ");
-        peso = teclado.nextFloat();
+        
         do{
-            System.out.println("Puerto de Origen: ");
+            System.out.println("Nombre del Puerto de Origen: ");
             puerto = teclado.next();
+            if (comparaPuerto(puerto)==-1)
+                System.out.println("Lo sentimos, ese puerto no Existe.");
         } while (comparaPuerto(puerto)==-1);
         origen.copy(puertosExistentes.get(comparaPuerto(puerto)));
+        
         do{
-            System.out.println("Puerto de Destino: ");
+            System.out.println("Nombre del Puerto de Destino: ");
             puerto = teclado.next();
+            if (comparaPuerto(puerto)==-1)
+                System.out.println("Lo sentimos, ese puerto no Existe.");
         } while (comparaPuerto(puerto)==-1);
         destino.copy(puertosExistentes.get(comparaPuerto(puerto)));
         
@@ -123,7 +126,7 @@ public class Menu {
                 temp.add(barco);
         }
         
-        System.out.println("Barcos Recomendados:");
+        System.out.println("Barcos Recomendados:\n");
         for (Barco barquito:temp){
             i+=1;
             System.out.println(i+".) " + barquito.getNombre() + ", Espacio Disponible: " + (barquito.getCapacidad()-estimarPeso(barquito, origen)));
@@ -131,6 +134,8 @@ public class Menu {
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
             y = teclado.nextInt();
+            if (y<=0||y>temp.size())
+                System.out.println("Esa no es una opcion valida.");
         }
         do{
             System.out.println("Peso de la Carga: ");
@@ -140,6 +145,12 @@ public class Menu {
                 System.out.println("Lo siento, el barco no puede soportar tanta carga");
         } while (peso>(temp.get(y-1).getCapacidad()-pesoEstimado));
         
+        Carga carga = new Carga(codCarga, dueño, descripcion, peso, origen, destino);
+        for (Barco barco1:barcosExistentes){
+            if (barco1.getNombre().equals(temp.get(y-1).getNombre())){
+                barco1.getCargaProg().add(carga);
+            }
+        }
     }
        
     static Ruta IngresarRuta(){
