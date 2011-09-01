@@ -59,14 +59,17 @@ public class Menu {
     }
     
     static float estimarPeso(Barco barco, Puerto o){ 
-        float x = 0; int y=0, z;
+        float x = 0; int y = 0, z = 0;
         for (Puerto puertito:barco.getRuta().getPuerto()){
             if (puertito.getNombrePuerto().equals(o.getNombrePuerto()))
                 y = barco.getRuta().getPuerto().indexOf(puertito);
         }
         
         for (Carga producto:barco.getCargaProg()){
-            z = barco.getRuta().getPuerto().indexOf(producto.getDestino());
+            for (Puerto puertito:barco.getRuta().getPuerto()){
+                if (producto.getDestino().getNombrePuerto().equals(puertito.getNombrePuerto()))
+                    z = barco.getRuta().getPuerto().indexOf(puertito);
+            }
             x+=producto.getPeso();
             if (barco.getRuta().getFechaA().get(z).before(barco.getRuta().getFechaA().get(y))){
                 x-=producto.getPeso();
