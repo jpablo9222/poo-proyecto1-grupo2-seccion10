@@ -58,17 +58,14 @@ public class Menu {
         barcosExistentes.add(barco);
     }
     
-    // No esta bueno, ay ke arregarlo, utilizar el nuevo metodo de barco.
     static float estimarPeso(Barco barco, Puerto origen){ 
-        float x=0; int y, z;
+        float x = 0; int y, z;
         y = barco.getRuta().getPuerto().indexOf(origen);
-        for (Contenedor cont:barco.getContenedores()){
-            for (Carga producto:cont.getCarga()){
-                z = barco.getRuta().getPuerto().indexOf(producto.getDestino());
-                x+=producto.getPeso();
-                if (barco.getRuta().getFechaA().get(z).before(barco.getRuta().getFechaA().get(y))){
-                    x-=producto.getPeso();
-                }
+        for (Carga producto:barco.getCargaProg()){
+            z = barco.getRuta().getPuerto().indexOf(producto.getDestino());
+            x+=producto.getPeso();
+            if (barco.getRuta().getFechaA().get(z).before(barco.getRuta().getFechaA().get(y))){
+                x-=producto.getPeso();
             }
         }
         return x;
