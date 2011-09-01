@@ -185,7 +185,7 @@ public class Menu {
                     System.out.println("Año: ");
                     año = teclado.nextInt();
                     fecha = Calendar.getInstance();
-                    fecha.set(año, dia, mes, 0, 0, 0);
+                    fecha.set(año, mes, dia, 0, 0, 0);
                     ruta.getFechaA().add(fecha);
                 } else {
                     do{
@@ -196,7 +196,7 @@ public class Menu {
                         System.out.println("Año: ");
                         año = teclado.nextInt();
                         fecha = Calendar.getInstance();
-                        fecha.set(año, dia, mes, 0, 0, 0);
+                        fecha.set(año, mes, dia, 0, 0, 0);
                     } while (fecha.after(ruta.getFechaA().get(-1)));
                 }
                 ruta.getFechaA().add(fecha);  
@@ -275,14 +275,17 @@ public class Menu {
                                     Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
                                     carga.setPeso(y);
                                     barco.getContenedores().get(f).getCarga().add(carga);
+                                    barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCapacidad());
                                     f+=1;
                                     if ((barco.getContenedores().size()-1)==f){
                                         Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
                                         barco.getContenedores().add(cont1);
                                     }
                                     barco.getContenedores().get(f).getCarga().add(carga1);
+                                    barco.getContenedores().get(f).setCargaActual((carga.getPeso()-y));
                                 } else {
                                     barco.getContenedores().get(f).getCarga().add(carga);
+                                    barco.getContenedores().get(f).setCargaActual((carga.getPeso()+y));
                                 }
                             }
                         }
@@ -293,6 +296,17 @@ public class Menu {
             }
         }
         
+    }
+    // Incompleto es poco :P, averiguar como hacer copia de una fecha.
+    static void arriboPuerto(){
+        Calendar fecha = Calendar.getInstance();
+        fecha.set(3000, 12, 1, 0, 0, 0);
+        System.out.println("\tArribo a un Puerto");
+        for (int x=0; x<barcosExistentes.size(); x++){
+            if (barcosExistentes.get(x).getRuta().getFechaA().get(0).before(fecha)){
+                //fecha.set(barcosExistentes.get(x).getRuta().getFechaA().get(0).get(0))
+            }
+        }
     }
      
     
