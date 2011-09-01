@@ -23,6 +23,8 @@ public class Barco {
         naviera = nav; pais_naviera = pnav; capacidad_maxima = cap;
         capacidad_contenedores = capCont; ruta = path; nombre = name;
         capitan = captain;
+        contenedores = new ArrayList<Contenedor>();
+        cargaProgramada = new ArrayList<Carga>();
     }   
        
     public String getNombre()
