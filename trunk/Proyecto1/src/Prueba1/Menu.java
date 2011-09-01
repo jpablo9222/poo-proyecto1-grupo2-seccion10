@@ -58,9 +58,13 @@ public class Menu {
         barcosExistentes.add(barco);
     }
     
-    static float estimarPeso(Barco barco, Puerto origen){ 
-        float x = 0; int y, z;
-        y = barco.getRuta().getPuerto().indexOf(origen);
+    static float estimarPeso(Barco barco, Puerto o){ 
+        float x = 0; int y=0, z;
+        for (Puerto puertito:barco.getRuta().getPuerto()){
+            if (puertito.getNombrePuerto().equals(o.getNombrePuerto()))
+                y = barco.getRuta().getPuerto().indexOf(puertito);
+        }
+        
         for (Carga producto:barco.getCargaProg()){
             z = barco.getRuta().getPuerto().indexOf(producto.getDestino());
             x+=producto.getPeso();
@@ -332,14 +336,17 @@ public class Menu {
 
     static void consultar(){
         int op;
+        do {
         System.out.println("¿Que Informacion Desea Consultar?\n");
-        System.out.println("Puertos registrados.");
-        System.out.println("Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.");
-        System.out.println("La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
-        System.out.println("Cantidad de barcos que hay en un puerto en un momento dado.");
-        System.out.println("La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
-        System.out.println("Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
+        System.out.println("1.) Puertos registrados.");
+        System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.");
+        System.out.println("3.) La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
+        System.out.println("4.) Cantidad de barcos que hay en un puerto en un momento dado.");
+        System.out.println("5.) La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
+        System.out.println("6.) Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
+        op = teclado.nextInt();
         
+        } while (op<=0||op>6);
     }
     
     public static void main(String[] args){
