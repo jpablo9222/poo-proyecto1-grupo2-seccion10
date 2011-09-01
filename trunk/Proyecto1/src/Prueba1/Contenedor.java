@@ -10,13 +10,13 @@ package Prueba1;
  */
 import java.util.ArrayList;
 public class Contenedor {
-    private float capacidad_maxima;
+    private float capacidad_maxima, cargaActual;
     private ArrayList<Carga> cargas;
     private int codContenedor;
     
     public Contenedor(int cod, float capacidad)
     {
-        codContenedor = cod; capacidad_maxima = capacidad;
+        codContenedor = cod; capacidad_maxima = capacidad; cargaActual = 0;
     }
     
     public float getCapacidad()
@@ -27,6 +27,16 @@ public class Contenedor {
     public int getCodContendor()
     {
         return codContenedor;
+    }
+    
+    public float getCargaActual()
+    {
+        return cargaActual;
+    }
+    
+    public void setCargaActual(float x)
+    {
+        cargaActual = x;
     }
     
     public ArrayList<Carga> getCarga()
