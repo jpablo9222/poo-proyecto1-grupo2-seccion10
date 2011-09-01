@@ -199,7 +199,7 @@ public class Menu {
                         año = teclado.nextInt();
                         fecha = Calendar.getInstance();
                         fecha.set(año, mes, dia, 0, 0, 0);
-                    } while (fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
+                    } while (fecha.before(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
                 }
                 ruta.getFechaA().add(fecha);  
             }
@@ -331,6 +331,8 @@ public class Menu {
     }
 
     static void consultar(){
+        int op;
+        System.out.println("¿Que Informacion Desea Consultar?\n");
         System.out.println("Puertos registrados.");
         System.out.println("Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.");
         System.out.println("La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
