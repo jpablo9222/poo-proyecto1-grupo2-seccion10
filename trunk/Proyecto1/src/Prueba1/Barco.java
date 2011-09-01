@@ -14,6 +14,7 @@ public class Barco {
     private float capacidad_maxima;
     private int capacidad_contenedores;
     private ArrayList<Contenedor> contenedores;
+    private ArrayList<Carga> cargaProgramada;
     private Ruta ruta;
     
     public Barco(String name, String nav, String pnav, float cap, int capCont,
@@ -62,5 +63,10 @@ public class Barco {
     public ArrayList<Contenedor> getContenedores()
     {
         return contenedores;
+    }
+    
+    public ArrayList<Carga> getCargaProg()
+    {
+        return cargaProgramada;
     }
 }
