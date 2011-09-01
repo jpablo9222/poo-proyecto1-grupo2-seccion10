@@ -21,10 +21,10 @@ public class Menu {
     static void IngresarPuerto(){
         String nombre, pais, coordenadas;
         System.out.println("Ingreso de Puertos");
-        System.out.println("Nombre del Puerto: ");
-        nombre = teclado.next();
+        System.out.println("\nNombre del Puerto: ");
+        teclado.nextLine(); nombre = teclado.nextLine();
         System.out.println("Pais del Puerto: ");
-        pais = teclado.next();
+        pais = teclado.nextLine();
         System.out.println("Coordenadas del Puerto: ");
         coordenadas = teclado.next();
         
@@ -41,13 +41,13 @@ public class Menu {
         
         System.out.println("Ingreso de Barcos\n");
         System.out.println("Nombre del Barco: ");
-        nombre = teclado.next();
+        teclado.nextLine(); nombre = teclado.nextLine();
         System.out.println("Capitan del Barco: ");
-        capitan = teclado.next();
+        capitan = teclado.nextLine();
         System.out.println("Naviera Propietaria del Barco: ");
-        naviera = teclado.next();
+        naviera = teclado.nextLine();
         System.out.println("Pais de la Naviera: ");
-        pnaviera = teclado.next();
+        pnaviera = teclado.nextLine();
         System.out.println("Capacidad Maxima en toneladas Métricas del Barco: ");
         capacidadMaxima = teclado.nextFloat();
         System.out.println("Capacidad Maxima de Contenedores en el Barco: ");
@@ -297,16 +297,35 @@ public class Menu {
         }
         
     }
-    // Incompleto es poco :P, averiguar como hacer copia de una fecha.
+
     static void arriboPuerto(){
-        Calendar fecha = Calendar.getInstance();
-        fecha.set(3000, 12, 1, 0, 0, 0);
+        int año, mes, dia;
+        Calendar fechaMenor = Calendar.getInstance();
+        Calendar fecha1 = Calendar.getInstance();
+        fechaMenor.set(3000, 12, 1, 0, 0, 0);
         System.out.println("\tArribo a un Puerto");
         for (int x=0; x<barcosExistentes.size(); x++){
-            if (barcosExistentes.get(x).getRuta().getFechaA().get(0).before(fecha)){
-                //fecha.set(barcosExistentes.get(x).getRuta().getFechaA().get(0).get(0))
+            if (barcosExistentes.get(x).getRuta().getFechaA().get(0).before(fechaMenor)){
+                fechaMenor = barcosExistentes.get(x).getRuta().getFechaA().get(0);
             }
         }
+        System.out.println("En esta sección se Calculan todos los Cargues y Descargues automáticamente");
+        System.out.println("\nIngrese la Fecha Actual: ");
+        
+        System.out.println("\nDia: ");
+        dia = teclado.nextInt();
+        System.out.println("Mes: ");
+        mes = teclado.nextInt();
+        System.out.println("Año: ");
+        año = teclado.nextInt();
+        fecha1.set(año, mes, dia, 0, 0, 0);
+        if (fecha1.before(fechaMenor)){
+            System.out.println("Lo sentimos, a tal Fecha no hay actividad alguna.");
+        } else {
+            consolidarCarga(fecha1);
+            System.out.println("Chilerisimo :D");
+        }
+        
     }
      
     
