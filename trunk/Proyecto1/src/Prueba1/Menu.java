@@ -166,11 +166,13 @@ public class Menu {
             }
 
             if (op.equalsIgnoreCase("S")){
+                i = 0;
                 System.out.println("Puertos Existentes:");
                 for (Puerto x:puertosExistentes){
                     i = i+1;
                     System.out.println(i+".) " + x.getNombrePuerto());
                 }
+                y = 0;
                 while (y<=0||y>puertosExistentes.size()){
                     System.out.println("Seleccione el Puerto a Agregar: ");
                     y = teclado.nextInt();
@@ -327,7 +329,10 @@ public class Menu {
         }
         
     }
-     
+
+    static void consultar(){
+        
+    }
     
     public static void main(String[] args){
         int opcion=0;
