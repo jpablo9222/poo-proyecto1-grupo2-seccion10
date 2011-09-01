@@ -127,6 +127,10 @@ public class Menu {
                 temp.add(barco);
         }
         
+        if (temp.isEmpty()){
+            System.out.println("Lo Sentimos, Ningun Barco Cumple Con Los Puertos de la Carga");
+            return;
+        } 
         System.out.println("Barcos Recomendados:\n");
         for (Barco barquito:temp){
             i+=1;
@@ -344,9 +348,30 @@ public class Menu {
         System.out.println("4.) Cantidad de barcos que hay en un puerto en un momento dado.");
         System.out.println("5.) La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
         System.out.println("6.) Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
+        System.out.println("7.) Regresar a Menu Principal");
         op = teclado.nextInt();
+        if (op<=0||op>7)
+            System.out.println("Lo Sentimos, esa Opcion no Existe.\nIngrese otra de Nuevo.");
+        } while (op<=0||op>7);
         
-        } while (op<=0||op>6);
+        switch (op){
+               case 1:
+                   break;
+               case 2:
+                   break;
+               case 3:
+                   break;
+               case 4:
+                   break;
+               case 5:
+                   break;
+               case 6:
+                   break;
+               case 7:
+                   System.out.println("Gracias por utilizar nuestro Programa");
+                   System.out.println("Nos vemos");
+                   break;
+        }
     }
     
     public static void main(String[] args){
