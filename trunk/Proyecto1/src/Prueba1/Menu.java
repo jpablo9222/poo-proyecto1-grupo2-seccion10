@@ -26,7 +26,7 @@ public class Menu {
         System.out.println("Pais del Puerto: ");
         pais = teclado.nextLine();
         System.out.println("Coordenadas del Puerto: ");
-        coordenadas = teclado.next();
+        coordenadas = teclado.nextLine();
         
         Puerto puerto = new Puerto (nombre, pais, coordenadas);
         puertosExistentes.add(puerto);
@@ -331,6 +331,12 @@ public class Menu {
     }
 
     static void consultar(){
+        Puertos registrados.
+        Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.
+        La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.
+        Cantidad de barcos que hay en un puerto en un momento dado.
+        La programación de arribos de barcos a un puerto en un periodo de tiempo dado.
+        Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.
         
     }
     
