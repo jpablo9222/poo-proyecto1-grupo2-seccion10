@@ -337,8 +337,16 @@ public class Menu {
         }
         
     }
-
-    static void consultar(){
+    
+    static void c1(){
+        int i = 0;
+        System.out.println("\nPuertos Registrados: ");
+        for (Puerto x:puertosExistentes){
+            i = i+1;
+            System.out.println(i+".) " + x.getNombrePuerto());
+        }
+    }
+    static void consultaInformacion(){
         int op;
         do {
         System.out.println("¿Que Informacion Desea Consultar?\n");
