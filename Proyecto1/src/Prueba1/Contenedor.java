@@ -12,11 +12,11 @@ import java.util.ArrayList;
 public class Contenedor {
     private float capacidad_maxima, cargaActual;
     private ArrayList<Carga> cargas;
-    private int codContenedor;
+    private int codContenedor = 2011001;
     
-    public Contenedor(int cod, float capacidad)
+    public Contenedor(float capacidad)
     {
-        codContenedor = cod; capacidad_maxima = capacidad; cargaActual = 0;
+        codContenedor += 1; capacidad_maxima = capacidad; cargaActual = 0;
     }
     
     public float getCapacidad()
