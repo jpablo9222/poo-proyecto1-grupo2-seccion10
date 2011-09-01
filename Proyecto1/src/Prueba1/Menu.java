@@ -199,7 +199,7 @@ public class Menu {
                         año = teclado.nextInt();
                         fecha = Calendar.getInstance();
                         fecha.set(año, mes, dia, 0, 0, 0);
-                    } while (fecha.after(ruta.getFechaA().get(-1)));
+                    } while (fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
                 }
                 ruta.getFechaA().add(fecha);  
             }
@@ -331,20 +331,20 @@ public class Menu {
     }
 
     static void consultar(){
-        Puertos registrados.
-        Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.
-        La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.
-        Cantidad de barcos que hay en un puerto en un momento dado.
-        La programación de arribos de barcos a un puerto en un periodo de tiempo dado.
-        Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.
+        System.out.println("Puertos registrados.");
+        System.out.println("Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.");
+        System.out.println("La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
+        System.out.println("Cantidad de barcos que hay en un puerto en un momento dado.");
+        System.out.println("La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
+        System.out.println("Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
         
     }
     
     public static void main(String[] args){
         int opcion=0;
+        System.out.println("\tBienvenido");
         while (opcion!=5){
-           System.out.println("\tBienvenido\n");
-           System.out.println("\tMenu\n");
+           System.out.println("\n\tMenu\n");
            System.out.println("1. Agregar un Puerto");
            System.out.println("2. Agregar un Barco");
            System.out.println("3. Programar envio de Carga");
