@@ -39,6 +39,16 @@ public class Carga {
         return peso;
     }
     
+    public void addPeso(float x)
+    {
+        peso+=x;
+    }
+    
+    public void setPeso(float x)
+    {
+        peso = x;
+    }
+    
     public Puerto getOrigen()
     {
         return origen;
