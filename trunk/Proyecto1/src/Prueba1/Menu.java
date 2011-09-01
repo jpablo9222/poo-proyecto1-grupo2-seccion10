@@ -352,6 +352,7 @@ public class Menu {
                    IngresarCarga();
                    break;
                case 4:
+                   arriboPuerto();
                    break;
                case 5:
                    System.out.println("Gracias por utilizar nuestro Programa");
