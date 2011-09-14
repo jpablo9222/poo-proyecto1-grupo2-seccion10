@@ -265,10 +265,13 @@ public class Menu {
                                 Carga carga1 = new Carga (charge.getCodCarga(), charge.getDueño(), charge.getDescripcion(), (charge.getPeso()-y), charge.getOrigen(), charge.getDestino());
                                 charge.setPeso(y);
                                 barco.getContenedores().get(f).getCarga().add(charge);
+                                barco.getContenedores().get(f).setCargaActual(y);
                                 f+=1;
                                 barco.getContenedores().get(f).getCarga().add(carga1);
+                                barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
                             } else {
                                 barco.getContenedores().get(f).getCarga().add(charge);
+                                barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+charge.getPeso());
                             }
                         }
                         // Cargue
@@ -288,17 +291,17 @@ public class Menu {
                                     Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
                                     carga.setPeso(y);
                                     barco.getContenedores().get(f).getCarga().add(carga);
-                                    barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCapacidad());
+                                    barco.getContenedores().get(f).setCargaActual(y);
                                     f+=1;
                                     if ((barco.getContenedores().size()-1)==f){
                                         Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
                                         barco.getContenedores().add(cont1);
                                     }
                                     barco.getContenedores().get(f).getCarga().add(carga1);
-                                    barco.getContenedores().get(f).setCargaActual((carga.getPeso()-y));
+                                    barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
                                 } else {
                                     barco.getContenedores().get(f).getCarga().add(carga);
-                                    barco.getContenedores().get(f).setCargaActual((carga.getPeso()+y));
+                                    barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+carga.getPeso());
                                 }
                             }
                         }
