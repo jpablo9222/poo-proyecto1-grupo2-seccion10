@@ -220,7 +220,7 @@ public class Menu {
         }
         do{
             System.out.println("Peso de la Carga: ");
-            peso = teclado.nextFloat();
+            peso = ingresarFloat();
             pesoEstimado = estimarPeso(temp.get(y-1),origen);
             if (peso>(temp.get(y-1).getCapacidad()-pesoEstimado))
                 System.out.println("Lo siento, el barco no puede soportar tanta carga");
@@ -278,7 +278,9 @@ public class Menu {
                 } else {
                     do{
                         fecha = ingresarFecha();
-                    } while (fecha.before(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
+                        if (!fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)))
+                            System.out.println("Lo Sentimos, Debe Ingresar Una Fecha Posterior a la Parada Anterior.\n");
+                    } while (!fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
                 }
                 ruta.getFechaA().add(fecha);  
             }
@@ -425,7 +427,7 @@ public class Menu {
         listaPuertos();
         while (y<=0||y>puertosExistentes.size()){
             System.out.println("¿Cual puerto desea analizar?");
-            y = teclado.nextInt();
+            y = ingresarInt();
             if (y<=0||y>puertosExistentes.size())
                 System.out.println("Lo sentimos, ese Puerto no Existe");          
         }
@@ -437,7 +439,7 @@ public class Menu {
                 }      
             }
             if (x>0)
-                System.out.println("Hay "+x+" contenedores cargados del Barco "+barco.getNombre()+".");
+                System.out.println("Hay " + x + " contenedores cargados del Barco " + barco.getNombre() + ".");
             x=0;
         }
     }
@@ -451,7 +453,7 @@ public class Menu {
         }
         while (y<=0||y>barcosExistentes.size()){
             System.out.println("¿Cual barco desea analizar?");
-            y = teclado.nextInt();
+            y = ingresarInt();
             if (y<=0||y>barcosExistentes.size())
                 System.out.println("Lo sentimos, ese Puerto no Existe");          
         }
