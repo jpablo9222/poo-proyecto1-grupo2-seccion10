@@ -363,8 +363,6 @@ public class Menu {
     static void c1(){
         System.out.println("\nPuertos Registrados: ");
         listaPuertos();
-        System.out.println("Presione Enter para Continuar");
-        teclado.nextLine();
     }
     
     static void c2(){
@@ -388,8 +386,6 @@ public class Menu {
                 System.out.println("Hay "+x+" contenedores cargados del Barco "+barco.getNombre()+".");
             x=0;
         }
-        System.out.println("\nPresione Enter para Continuar");
-        teclado.nextLine();
     }
     
     static void c3(){
@@ -422,8 +418,6 @@ public class Menu {
             }
             z=0;
         }
-        System.out.println("\nPresione Enter para Continuar");
-        teclado.nextLine();
     }
     
     static Calendar ingresarFecha(){
@@ -529,28 +523,52 @@ public class Menu {
         
         switch (op){
                case 1:
-                   c1();
+                   if (puertosExistentes.isEmpty()){
+                       System.out.println("No Hay Ningun Puerto Registrado.");
+                   }else{
+                       c1();
+                   }
                    break;
                case 2:
-                   c2();
+                   if (cargasExistentes.isEmpty()){
+                       System.out.println("No Hay Ningun Contenedor Cargado.");
+                   }else{
+                       c2();
+                   }
                    break;
                case 3:
-                   c3();
+                   if (barcosExistentes.isEmpty()){
+                       System.out.println("No Hay Ninguna Ruta Establecida.");
+                   }else{
+                       c3();
+                   }
                    break;
                case 4:
-                   c4();
+                   if (barcosExistentes.isEmpty()){
+                       System.out.println("No Hay Ningun Barco Registrado para Algun Puerto.");
+                   }else{
+                       c4();
+                   }
                    break;
                case 5:
-                   c5();
+                   if (barcosExistentes.isEmpty()){
+                       System.out.println("No Hay Programacion de Arribo de Barcos en Ningun Puerto.");
+                   }else{
+                       c5();
+                   }
                    break;
                case 6:
-                   c6();
+                   if (cargasExistentes.isEmpty()){
+                       System.out.println("No Hay Ningun Envio de Cargas Programada.");
+                   }else{
+                       c6();
+                   }
                    break;
                case 7:
-                   System.out.println("Gracias por utilizar nuestro Programa");
-                   System.out.println("Nos vemos");
-                   break;
+                   return;
         }
+        System.out.println("\nPresione Enter para Continuar");
+        teclado.nextLine(); teclado.nextLine();
     }
     
     public static void main(String[] args){
@@ -571,13 +589,25 @@ public class Menu {
                    IngresarPuerto();
                    break;
                case 2:
-                   IngresarBarco();
+                   if (puertosExistentes.isEmpty()){
+                       System.out.println("Lo Lamento, Debe Ingresar Puertos Antes de Poder Ingresar un Barco.");
+                   }else{
+                       IngresarBarco();
+                   }
                    break;
                case 3:
-                   IngresarCarga();
+                   if (barcosExistentes.isEmpty()){
+                       System.out.println("Lo Lamento, Debe Ingresar Barcos Antes de Poder Ingresar una Carga.");
+                   }else{
+                       IngresarCarga();
+                   }
                    break;
                case 4:
-                   arriboPuerto();
+                   if (cargasExistentes.isEmpty()){
+                       System.out.println("Lo Lamento, Debe Programar Envio de Cargas Antes de Poder Ingresar una Carga.");
+                   }else{
+                       arriboPuerto();
+                   }
                    break;
                case 5:
                    consultaInformacion();
