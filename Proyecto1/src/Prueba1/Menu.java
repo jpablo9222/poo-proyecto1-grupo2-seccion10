@@ -17,6 +17,7 @@ public class Menu {
     static ArrayList<Puerto> puertosExistentes = new ArrayList<Puerto>();
     static ArrayList<Barco> barcosExistentes = new ArrayList<Barco>();
     static ArrayList<Carga> cargasExistentes = new ArrayList<Carga>();
+    static ArrayList<Ruta> rutasExistentes = new ArrayList<Ruta>();
     static SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
     
     public static int ingresarInt() {
@@ -235,12 +236,22 @@ public class Menu {
     }
        
     static Ruta IngresarRuta(){
-        Ruta ruta; Calendar fecha;
-        String op = "s"; int i=0, y=0, codigo; 
+        Ruta ruta; Calendar fecha; boolean x;
+        String op = "s"; int y=0, codigo; 
         
         System.out.println("\tIngreso de Ruta");
-        System.out.println("Codigo de la Ruta: ");
-        codigo = teclado.nextInt();
+        do{
+            System.out.println("Codigo de la Ruta: ");
+            codigo = teclado.nextInt();
+            x = false;
+            for(Ruta rutita:rutasExistentes){
+                if(rutita.getCodRuta()==codigo){
+                    System.out.println("Lo Sentimos, Ya Existe Una Ruta Con Ese Codigo.");
+                    System.out.println("Ingrese Otro Codigo De Nuevo.");
+                    x = true;
+                }
+            }
+        }while(x);
         ruta = new Ruta(codigo);
         while (op.equalsIgnoreCase("S")){
             op = " ";
@@ -250,7 +261,6 @@ public class Menu {
             }
 
             if (op.equalsIgnoreCase("S")){
-                i = 0;
                 System.out.println("Puertos Existentes:");
                 listaPuertos();
                 y = 0;
@@ -273,6 +283,7 @@ public class Menu {
                 ruta.getFechaA().add(fecha);  
             }
         }
+        rutasExistentes.add(ruta);
         return ruta;
     }
     
