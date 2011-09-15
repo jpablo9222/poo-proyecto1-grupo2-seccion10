@@ -16,6 +16,7 @@ public class Menu {
     static Scanner teclado = new Scanner(System.in);
     static ArrayList<Puerto> puertosExistentes = new ArrayList<Puerto>();
     static ArrayList<Barco> barcosExistentes = new ArrayList<Barco>();
+    static ArrayList<Carga> cargasExistentes = new ArrayList<Carga>();
     static SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
     
     public static int ingresarInt() {
@@ -185,6 +186,7 @@ public class Menu {
         for (Barco barco1:barcosExistentes){
             if (barco1.getNombre().equals(temp.get(y-1).getNombre())){
                 barco1.getCargaProg().add(carga);
+                cargasExistentes.add(carga);
             }
         }
     }
@@ -490,21 +492,39 @@ public class Menu {
         }
     }
     
+    static void c6(){
+        int y = 0, x = 0;
+        System.out.println("Puertos Existentes");
+        listaPuertos();
+        while (y<=0||y>puertosExistentes.size()){
+            System.out.println("¿Cual puerto desea analizar?");
+            y = teclado.nextInt();
+            if (y<=0||y>puertosExistentes.size())
+                System.out.println("Lo sentimos, ese Puerto no Existe");          
+        }
+        System.out.println("\nDestinatarios del Puerto " + puertosExistentes.get(y-1).getNombrePuerto());
+        for (Carga carga:cargasExistentes){
+            if (carga.getDestino().getNombrePuerto().equals(puertosExistentes.get(y-1).getNombrePuerto())){
+                System.out.println(carga.getDueño());
+            }
+        }
+    }
+    
     
     static void consultaInformacion(){
         int op;
         do {
-        System.out.println("¿Que Informacion Desea Consultar?\n");
-        System.out.println("1.) Puertos registrados.");
-        System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo destino es un puerto específico.");
-        System.out.println("3.) La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
-        System.out.println("4.) Cantidad de barcos que hay en un puerto en un momento dado.");
-        System.out.println("5.) La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
-        System.out.println("6.) Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
-        System.out.println("7.) Regresar a Menu Principal");
-        op = teclado.nextInt();
-        if (op<=0||op>7)
-            System.out.println("Lo Sentimos, esa Opcion no Existe.\nIngrese otra de Nuevo.");
+            System.out.println("¿Que Informacion Desea Consultar?\n");
+            System.out.println("1.) Puertos registrados.");
+            System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo destino es un puerto específico.");
+            System.out.println("3.) La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
+            System.out.println("4.) Cantidad de barcos que hay en un puerto en un momento dado.");
+            System.out.println("5.) La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
+            System.out.println("6.) Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
+            System.out.println("7.) Regresar a Menu Principal");
+            op = teclado.nextInt();
+            if (op<=0||op>7)
+                System.out.println("Lo Sentimos, esa Opcion no Existe.\nIngrese otra de Nuevo.");
         } while (op<=0||op>7);
         
         switch (op){
@@ -518,10 +538,13 @@ public class Menu {
                    c3();
                    break;
                case 4:
+                   c4();
                    break;
                case 5:
+                   c5();
                    break;
                case 6:
+                   c6();
                    break;
                case 7:
                    System.out.println("Gracias por utilizar nuestro Programa");
@@ -539,7 +562,8 @@ public class Menu {
            System.out.println("2. Agregar un Barco");
            System.out.println("3. Programar envio de Carga");
            System.out.println("4. Arribar a un Puerto");
-           System.out.println("5. Salir");
+           System.out.println("5. Realizar Consultas");
+           System.out.println("6. Salir");
            opcion = teclado.nextInt();
            
            switch (opcion){
@@ -556,6 +580,9 @@ public class Menu {
                    arriboPuerto();
                    break;
                case 5:
+                   consultaInformacion();
+                   break;
+               case 6:
                    System.out.println("Gracias por utilizar nuestro Programa");
                    System.out.println("Nos vemos");
                    break;
