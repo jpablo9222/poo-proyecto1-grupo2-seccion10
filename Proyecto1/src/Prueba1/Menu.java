@@ -18,6 +18,34 @@ public class Menu {
     static ArrayList<Barco> barcosExistentes = new ArrayList<Barco>();
     static SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
     
+    public static int ingresarInt() {
+        Integer x = null;
+        while (x == null) {
+            String y = teclado.nextLine();
+            try {
+                x = Integer.parseInt(y);
+            } catch (Exception e) {
+                x = null;
+                System.out.print("Ingrese un número entero: ");
+            }
+        }
+        return x;
+    }
+
+    public static float ingresarFloat() {
+        Float x = null;
+        while (x == null) {
+            String y = teclado.nextLine();
+            try {
+                x = Float.parseFloat(y);
+            } catch (Exception e) {
+                x = null;
+                System.out.print("Ingrese un número: ");
+            }
+        }
+        return x;
+    }
+    
     static void IngresarPuerto(){
         String nombre, pais, coordenadas;
         System.out.println("Ingreso de Puertos");
@@ -163,7 +191,7 @@ public class Menu {
        
     static Ruta IngresarRuta(){
         Ruta ruta; Calendar fecha;
-        String op = "s"; int i=0, y=0, codigo, dia, mes, año; 
+        String op = "s"; int i=0, y=0, codigo; 
         
         System.out.println("\tIngreso de Ruta");
         System.out.println("Codigo de la Ruta: ");
@@ -179,37 +207,22 @@ public class Menu {
             if (op.equalsIgnoreCase("S")){
                 i = 0;
                 System.out.println("Puertos Existentes:");
-                for (Puerto x:puertosExistentes){
-                    i = i+1;
-                    System.out.println(i+".) " + x.getNombrePuerto());
-                }
+                listaPuertos();
                 y = 0;
                 while (y<=0||y>puertosExistentes.size()){
                     System.out.println("Seleccione el Puerto a Agregar: ");
                     y = teclado.nextInt();
+                    if (y<=0||y>puertosExistentes.size())
+                        System.out.println("Lo sentimos, ese Puerto no Existe");  
                 }
                 ruta.getPuerto().add(puertosExistentes.get(y-1));
                 System.out.println("Fecha Estimada de Arribo:");
                 if (ruta.getFechaA().isEmpty()){
-                    System.out.println("\nDia: ");
-                    dia = teclado.nextInt();
-                    System.out.println("Mes: ");
-                    mes = teclado.nextInt();
-                    System.out.println("Año: ");
-                    año = teclado.nextInt();
-                    fecha = Calendar.getInstance();
-                    fecha.set(año, mes, dia, 0, 0, 0);
+                    fecha = ingresarFecha();
                     ruta.getFechaA().add(fecha);
                 } else {
                     do{
-                        System.out.println("\nDia: ");
-                        dia = teclado.nextInt();
-                        System.out.println("Mes: ");
-                        mes = teclado.nextInt();
-                        System.out.println("Año: ");
-                        año = teclado.nextInt();
-                        fecha = Calendar.getInstance();
-                        fecha.set(año, mes, dia, 0, 0, 0);
+                        fecha = ingresarFecha();
                     } while (fecha.before(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
                 }
                 ruta.getFechaA().add(fecha);  
@@ -315,7 +328,6 @@ public class Menu {
     }
 
     static void arriboPuerto(){
-        int año, mes, dia;
         Calendar fechaMenor = Calendar.getInstance();
         Calendar fecha1 = Calendar.getInstance();
         fechaMenor.set(3000, 12, 1, 0, 0, 0);
@@ -328,13 +340,7 @@ public class Menu {
         System.out.println("En esta sección se Calculan todos los Cargues y Descargues automáticamente");
         System.out.println("\nIngrese la Fecha Actual: ");
         
-        System.out.println("\nDia: ");
-        dia = teclado.nextInt();
-        System.out.println("Mes: ");
-        mes = teclado.nextInt();
-        System.out.println("Año: ");
-        año = teclado.nextInt();
-        fecha1.set(año, mes, dia, 0, 0, 0);
+        fecha1 = ingresarFecha();
         if (fecha1.before(fechaMenor)){
             System.out.println("Lo sentimos, a tal Fecha no hay actividad alguna.");
         } else {
@@ -344,20 +350,153 @@ public class Menu {
         
     }
     
-    static void c1(){
+    static void listaPuertos(){
         int i = 0;
-        System.out.println("\nPuertos Registrados: ");
         for (Puerto x:puertosExistentes){
             i = i+1;
             System.out.println(i+".) " + x.getNombrePuerto());
         }
     }
+    
+    static void c1(){
+        System.out.println("\nPuertos Registrados: ");
+        listaPuertos();
+        System.out.println("Presione Enter para Continuar");
+        teclado.nextLine();
+    }
+    
+    static void c2(){
+        int y = 0,x = 0;
+        System.out.println("Puertos Existentes");
+        listaPuertos();
+        while (y<=0||y>puertosExistentes.size()){
+            System.out.println("¿Cual puerto desea analizar?");
+            y = teclado.nextInt();
+            if (y<=0||y>puertosExistentes.size())
+                System.out.println("Lo sentimos, ese Puerto no Existe");          
+        }
+        for (Barco barco:barcosExistentes){
+            for (Contenedor cont:barco.getContenedores()){
+                for (Carga carga:cont.getCarga()){
+                    if (carga.getDestino().getNombrePuerto().equals(puertosExistentes.get(y-1).getNombrePuerto()))
+                        x+=1;   
+                }      
+            }
+            if (x>0)
+                System.out.println("Hay "+x+" contenedores cargados del Barco "+barco.getNombre()+".");
+            x=0;
+        }
+        System.out.println("\nPresione Enter para Continuar");
+        teclado.nextLine();
+    }
+    
+    static void c3(){
+        int i = 0, y = 0, z=0, f=0;
+        System.out.println("Barcos Existentes");
+        for (Barco x:barcosExistentes){
+            i = i+1;
+            System.out.println(i+".) " + x.getNombre());
+        }
+        while (y<=0||y>barcosExistentes.size()){
+            System.out.println("¿Cual barco desea analizar?");
+            y = teclado.nextInt();
+            if (y<=0||y>barcosExistentes.size())
+                System.out.println("Lo sentimos, ese Puerto no Existe");          
+        }
+        System.out.println("\nRuta del Barco "+barcosExistentes.get(y-1).getNombre());
+        for (Puerto puerto:barcosExistentes.get(y-1).getRuta().getPuerto()){
+            f = barcosExistentes.get(y-1).getRuta().getPuerto().indexOf(puerto);
+            System.out.println("Puerto: "+puerto.getNombrePuerto()+", Fecha: "+date_format.format(barcosExistentes.get(y-1).getRuta().getFechaA().get(f).getTime()));
+            for (Contenedor cont:barcosExistentes.get(y-1).getContenedores()){
+                for (Carga carga:cont.getCarga()){
+                    if (carga.getDestino().getNombrePuerto().equals(puerto.getNombrePuerto()))
+                        z+=1;   
+                }      
+            }
+            if (z>0){
+                System.out.println("Hay "+z+" contenedores a descargar.");
+            }else{
+                System.out.println("No hay ningun contenedor a descargar.");
+            }
+            z=0;
+        }
+        System.out.println("\nPresione Enter para Continuar");
+        teclado.nextLine();
+    }
+    
+    static Calendar ingresarFecha(){
+        int dia, mes, año;
+        Calendar fecha;
+        System.out.println("Ingrese la Fecha a Analizar");
+        System.out.println("\nDia: ");
+        dia = teclado.nextInt();
+        System.out.println("Mes: ");
+        mes = teclado.nextInt();
+        System.out.println("Año: ");
+        año = teclado.nextInt();
+        fecha = Calendar.getInstance();
+        fecha.set(año, mes, dia, 0, 0, 0);
+        return fecha;
+    }
+    
+    static void c4(){
+        Calendar fecha; int x = 0;
+        System.out.println("Ingrese la Fecha a Analizar");
+        fecha = ingresarFecha();
+        System.out.println("\nPara la Fecha de "+ date_format.format(fecha.getTime())+" habran:");
+        for (Puerto puerto:puertosExistentes){
+            for (Barco barco:barcosExistentes){
+                for (Calendar fecha1:barco.getRuta().getFechaA()){
+                    if (barco.getRuta().getPuerto().get(barco.getRuta().getFechaA().indexOf(fecha1)).getNombrePuerto().equals(puerto.getNombrePuerto())&&fecha1.equals(fecha)){
+                        x+=1;
+                    }
+                }
+            }
+            System.out.println("En el Puerto: "+puerto.getNombrePuerto());
+            if (x>0){
+                System.out.println("Habran " + x + " barcos.");
+                x=0;
+            }else{
+                System.out.println("No habra Barco Alguno.");
+            }
+        }
+    }
+    
+    static void c5(){
+        Calendar fecha1, fecha2; boolean x;
+        System.out.println("Ingrese el Intervalo de Tiempo a Revisar");
+        System.out.println("Fecha de Inicio:");
+        fecha1 = ingresarFecha();
+        do{
+            System.out.println("Fecha Final");
+            fecha2 = ingresarFecha();
+            if (!fecha1.before(fecha2))
+                System.out.println("Lo sentimos, la fecha final debe ser posterior a la fecha inicial");
+        }while(!fecha1.before(fecha2));
+        
+        for (Puerto puerto:puertosExistentes){
+            System.out.println("Puerto: " + puerto.getNombrePuerto());
+            x = false;
+            for (Barco barco:barcosExistentes){
+                for (Calendar fecha:barco.getRuta().getFechaA()){
+                    if (barco.getRuta().getPuerto().get(barco.getRuta().getFechaA().indexOf(fecha1)).getNombrePuerto().equals(puerto.getNombrePuerto())&&!fecha.before(fecha1)&&!fecha.after(fecha2)){
+                        System.out.println("- Fecha: " + date_format.format(fecha.getTime()) + " - Barco: " + barco.getNombre());
+                        x = true;
+                    }
+                }
+            }
+            if (!x)
+                System.out.println("No habra Barco Alguno.");
+        }
+    }
+    
+    
     static void consultaInformacion(){
         int op;
         do {
         System.out.println("¿Que Informacion Desea Consultar?\n");
         System.out.println("1.) Puertos registrados.");
-        System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo desino es un puerto específico.");
+        System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo destino es un puerto específico.");
         System.out.println("3.) La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
         System.out.println("4.) Cantidad de barcos que hay en un puerto en un momento dado.");
         System.out.println("5.) La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
@@ -370,10 +509,13 @@ public class Menu {
         
         switch (op){
                case 1:
+                   c1();
                    break;
                case 2:
+                   c2();
                    break;
                case 3:
+                   c3();
                    break;
                case 4:
                    break;
