@@ -12,10 +12,13 @@ import java.util.ArrayList;
 public class Puerto {
     private String nombre, pais, coordenada;
     private ArrayList<Barco> barcosArribar;
+    private ArrayList<Carga> cargasArribar;
     
     public Puerto(String name, String country, String coor)
     {
-        nombre = name; pais = country; coordenada = coor; 
+        nombre = name; pais = country; coordenada = coor;
+        barcosArribar = new ArrayList<Barco>();
+        cargasArribar = new ArrayList<Carga>();
     }
     
     public String getNombrePuerto()
@@ -47,5 +50,15 @@ public class Puerto {
     public ArrayList<Barco> getBarcos()
     {
         return barcosArribar;
+    }
+    
+    public void addCarga(Carga charge)
+    {
+        cargasArribar.add(charge);
+    }
+    
+    public ArrayList<Carga> getCargas()
+    {
+        return cargasArribar;
     }
 }
