@@ -214,7 +214,7 @@ public class Menu {
         }
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
-            y = teclado.nextInt();
+            y = ingresarInt();
             if (y<=0||y>temp.size())
                 System.out.println("Esa no es una opcion valida.");
         }
@@ -242,7 +242,7 @@ public class Menu {
         System.out.println("\tIngreso de Ruta");
         do{
             System.out.println("Codigo de la Ruta: ");
-            codigo = teclado.nextInt();
+            codigo = ingresarInt();
             x = false;
             for(Ruta rutita:rutasExistentes){
                 if(rutita.getCodRuta()==codigo){
@@ -266,7 +266,7 @@ public class Menu {
                 y = 0;
                 while (y<=0||y>puertosExistentes.size()){
                     System.out.println("Seleccione el Puerto a Agregar: ");
-                    y = teclado.nextInt();
+                    y = ingresarInt();
                     if (y<=0||y>puertosExistentes.size())
                         System.out.println("Lo sentimos, ese Puerto no Existe");  
                 }
