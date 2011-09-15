@@ -8,8 +8,10 @@ package Prueba1;
  *
  * @author Juan Pablo
  */
+import java.util.ArrayList;
 public class Puerto {
     private String nombre, pais, coordenada;
+    private ArrayList<Barco> barcosArribar;
     
     public Puerto(String name, String country, String coor)
     {
@@ -35,5 +37,15 @@ public class Puerto {
     {
         nombre = puertito.nombre; pais = puertito.pais; 
         coordenada = puertito.coordenada;
+    }
+    
+    public void addBarco(Barco barquito)
+    {
+        barcosArribar.add(barquito);
+    }
+    
+    public ArrayList<Barco> getBarcos()
+    {
+        return barcosArribar;
     }
 }
