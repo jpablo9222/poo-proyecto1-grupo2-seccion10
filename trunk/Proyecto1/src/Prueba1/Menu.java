@@ -27,7 +27,7 @@ public class Menu {
                 x = Integer.parseInt(y);
             } catch (Exception e) {
                 x = null;
-                System.out.print("Ingrese un número entero: ");
+                System.out.println("Error... Por Favor Ingrese Un Numero Entero.");
             }
         }
         return x;
@@ -41,21 +41,41 @@ public class Menu {
                 x = Float.parseFloat(y);
             } catch (Exception e) {
                 x = null;
-                System.out.print("Ingrese un número: ");
+                System.out.println("Error... Por Favor Ingrese Un Numero.");
             }
         }
         return x;
     }
     
     static void IngresarPuerto(){
-        String nombre, pais, coordenadas;
+        String nombre, pais, coordenadas; boolean x;
         System.out.println("Ingreso de Puertos");
-        System.out.println("\nNombre del Puerto: ");
-        teclado.nextLine(); nombre = teclado.nextLine();
+        do{
+            System.out.println("\nNombre del Puerto: ");
+            teclado.nextLine(); nombre = teclado.nextLine();
+            x = false;
+            for(Puerto puertito:puertosExistentes){
+                if(puertito.getNombrePuerto().equalsIgnoreCase(nombre)){
+                    System.out.println("Lo Sentimos, Ya Existe Un Puerto Con Ese Nombre.");
+                    System.out.println("Ingrese Otro Nombre De Nuevo.");
+                    x = true;
+                }
+            }
+        }while(x);
         System.out.println("Pais del Puerto: ");
         pais = teclado.nextLine();
-        System.out.println("Coordenadas del Puerto: ");
-        coordenadas = teclado.nextLine();
+        do{
+            System.out.println("Coordenadas del Puerto: ");
+            coordenadas = teclado.nextLine();
+            x = false;
+            for(Puerto puertito:puertosExistentes){
+                if(puertito.getCoordenadaPuerto().equalsIgnoreCase(coordenadas)){
+                    System.out.println("Lo Sentimos, Ya Existe Un Puerto Con Esas Coordenadas.");
+                    System.out.println("Ingrese Otras Coordenadas De Nuevo.");
+                    x = true;
+                }
+            }
+        }while(x);
         
         Puerto puerto = new Puerto (nombre, pais, coordenadas);
         puertosExistentes.add(puerto);
@@ -66,11 +86,21 @@ public class Menu {
         String naviera, pnaviera, nombre, capitan;
         float capacidadMaxima;
         int capacidadCont;
-        Ruta ruta;
+        Ruta ruta; boolean x;
         
         System.out.println("Ingreso de Barcos\n");
-        System.out.println("Nombre del Barco: ");
-        teclado.nextLine(); nombre = teclado.nextLine();
+        do{
+            System.out.println("Nombre del Barco: ");
+            teclado.nextLine(); nombre = teclado.nextLine();
+            x = false;
+            for(Barco barquito:barcosExistentes){
+                if(barquito.getNombre().equalsIgnoreCase(nombre)){
+                    System.out.println("Lo Sentimos, Ya Existe Un Barco Con Ese Nombre.");
+                    System.out.println("Ingrese Otro Nombre De Nuevo.");
+                    x = true;
+                }
+            }
+        }while(x);
         System.out.println("Capitan del Barco: ");
         capitan = teclado.nextLine();
         System.out.println("Naviera Propietaria del Barco: ");
@@ -78,9 +108,9 @@ public class Menu {
         System.out.println("Pais de la Naviera: ");
         pnaviera = teclado.nextLine();
         System.out.println("Capacidad Maxima en toneladas Métricas del Barco: ");
-        capacidadMaxima = teclado.nextFloat();
+        capacidadMaxima = ingresarFloat();
         System.out.println("Capacidad Maxima de Contenedores en el Barco: ");
-        capacidadCont = teclado.nextInt();
+        capacidadCont = ingresarInt();
         ruta = IngresarRuta();
         Barco barco = new Barco(nombre, naviera, pnaviera, capacidadMaxima,
                                 capacidadCont, ruta, capitan);
@@ -117,15 +147,25 @@ public class Menu {
     }
     
     static void IngresarCarga(){
-        int codCarga, i=0, y=0; String dueño, descripcion, puerto;
-        float peso, pesoEstimado; boolean b1, b2;
+        int codCarga, i=0, y=0, ind, ind1 = 0, ind2 = 0; String dueño, descripcion, puerto;
+        float peso, pesoEstimado; boolean b1, b2,x;
         Puerto origen = new Puerto("","","");
         Puerto destino = new Puerto("","","");
         ArrayList<Barco> temp = new ArrayList<Barco>();
         
         System.out.println("\tIngreso de Carga\n");
-        System.out.println("Codigo de la Carga: ");
-        codCarga = teclado.nextInt();
+        do{
+            System.out.println("Codigo de la Carga: ");
+            codCarga = ingresarInt();
+            x = false;
+            for(Carga carguita:cargasExistentes){
+                if(carguita.getCodCarga()==codCarga){
+                    System.out.println("Lo Sentimos, Ya Existe Una Carga Con Ese Codigo.");
+                    System.out.println("Ingrese Otro Codigo De Nuevo.");
+                    x = true;
+                }
+            }
+        }while(x);
         System.out.println("Dueño de la Carga: ");
         dueño = teclado.next();
         System.out.println("Descripcion de la Carga: ");
@@ -150,13 +190,16 @@ public class Menu {
         for (Barco barco:barcosExistentes){
             b1 = false; b2 = false;
             for (Puerto puertito:barco.getRuta().getPuerto()){
-                if (puertito.getNombrePuerto().equals(origen.getNombrePuerto()))
-                    b1 = true;
-                if (puertito.getNombrePuerto().equals(destino.getNombrePuerto()))
-                    b2 = true;
+                ind = barco.getRuta().getPuerto().indexOf(puertito);
+                if (puertito.getNombrePuerto().equals(origen.getNombrePuerto())&&ind!=(barco.getRuta().getPuerto().size()-1))
+                    b1 = true; ind1 = ind;
+                if (puertito.getNombrePuerto().equals(destino.getNombrePuerto())&&ind!=0)
+                    b2 = true; ind2 = ind;
             }
-            if (b1 && b2)
-                temp.add(barco);
+            if (b1 && b2){
+                if (ind2>ind1)
+                    temp.add(barco);
+            }
         }
         
         if (temp.isEmpty()){
@@ -487,7 +530,7 @@ public class Menu {
     }
     
     static void c6(){
-        int y = 0, x = 0;
+        int y = 0;
         System.out.println("Puertos Existentes");
         listaPuertos();
         while (y<=0||y>puertosExistentes.size()){
