@@ -479,13 +479,25 @@ public class Menu {
     static Calendar ingresarFecha(){
         int dia, mes, año;
         Calendar fecha;
-        System.out.println("Ingrese la Fecha a Analizar");
-        System.out.println("\nDia: ");
-        dia = teclado.nextInt();
-        System.out.println("Mes: ");
-        mes = teclado.nextInt();
-        System.out.println("Año: ");
-        año = teclado.nextInt();
+        System.out.println("Ingrese la Fecha a Analizar\n");
+        do{
+            System.out.println("Dia: ");
+            dia = ingresarInt();
+            if (dia<1||dia>31)
+                System.out.println("Debe Ingresar un Dia Entre 1 y 31");
+        }while(dia<1||dia>31);
+        do{
+            System.out.println("Mes: ");
+            mes = ingresarInt();
+            if (mes<1||mes>12)
+                System.out.println("Debe Ingresar un Mes Entre 1 y 12.");
+        }while(mes<1||mes>12);
+        do{
+            System.out.println("Año: ");
+            año = ingresarInt();
+            if (año<2010)
+                System.out.println("Debe Ingresar un Año Mayor a 2010.");
+        }while(año<2010);
         fecha = Calendar.getInstance();
         fecha.set(año, mes, dia, 0, 0, 0);
         return fecha;
@@ -548,7 +560,7 @@ public class Menu {
         listaPuertos();
         while (y<=0||y>puertosExistentes.size()){
             System.out.println("¿Cual puerto desea analizar?");
-            y = teclado.nextInt();
+            y = ingresarInt();
             if (y<=0||y>puertosExistentes.size())
                 System.out.println("Lo sentimos, ese Puerto no Existe");          
         }
@@ -572,7 +584,7 @@ public class Menu {
             System.out.println("5.) La programación de arribos de barcos a un puerto en un periodo de tiempo dado.");
             System.out.println("6.) Consulta de las personas o empresas a quienes se les envía carga en un puerto específico.");
             System.out.println("7.) Regresar a Menu Principal");
-            op = teclado.nextInt();
+            op = ingresarInt();
             if (op<=0||op>7)
                 System.out.println("Lo Sentimos, esa Opcion no Existe.\nIngrese otra de Nuevo.");
         } while (op<=0||op>7);
@@ -638,7 +650,7 @@ public class Menu {
            System.out.println("4. Arribar a un Puerto");
            System.out.println("5. Realizar Consultas");
            System.out.println("6. Salir");
-           opcion = teclado.nextInt();
+           opcion = ingresarInt();
            
            switch (opcion){
                case 1:
