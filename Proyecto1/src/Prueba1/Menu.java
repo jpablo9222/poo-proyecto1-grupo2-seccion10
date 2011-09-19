@@ -202,7 +202,11 @@ public class Menu {
         System.out.println("Barcos Recomendados:\n");
         for (Barco barquito:temp){
             i+=1;
-            System.out.println(i+".) " + barquito.getNombre() + ", Espacio Disponible: " + (barquito.getCapacidad()-(estimarPeso(barquito))));
+            pesoEstimado=0;
+            for (Carga producto:barquito.getCargaProg()){
+                   pesoEstimado+=producto.getPeso();
+            } 
+            System.out.println(i+".) " + barquito.getNombre() + ", Espacio Disponible: " + (barquito.getCapacidad()-pesoEstimado));
         }
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
@@ -210,10 +214,13 @@ public class Menu {
             if (y<=0||y>temp.size())
                 System.out.println("Esa no es una opcion valida.");
         }
+        pesoEstimado=0;
+        for (Carga producto:temp.get(y-1).getCargaProg()){
+            pesoEstimado+=producto.getPeso();
+        }
         do{
             System.out.println("Peso de la Carga: ");
-            peso = ingresarFloat();
-            pesoEstimado = estimarPeso(temp.get(y-1));
+            peso = ingresarFloat(); 
             if (peso>(temp.get(y-1).getCapacidad()-pesoEstimado))
                 System.out.println("Lo siento, el barco no puede soportar tanta carga");
         } while (peso>(temp.get(y-1).getCapacidad()-pesoEstimado));
