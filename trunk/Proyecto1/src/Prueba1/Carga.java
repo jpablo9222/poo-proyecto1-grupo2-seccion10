@@ -22,7 +22,7 @@ public class Carga {
     */
     public Carga(int cod, String owner, String des, float weight, Puerto o, Puerto d)
     {
-        codCarga = cod; dueño = owner; descripcion = des; origen = o; destino = d;
+        codCarga = cod; dueño = owner; descripcion = des; origen = o; destino = d; peso = weight;
     }
     
    /**
