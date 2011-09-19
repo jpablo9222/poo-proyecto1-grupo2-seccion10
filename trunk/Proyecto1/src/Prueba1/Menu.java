@@ -279,7 +279,7 @@ public class Menu {
     }
 
     static void arriboPuerto(){
-        int x; float y;
+        int x; float y=0;
         ArrayList<Carga> temp = new ArrayList<Carga>();
         Calendar fechaMenor = Calendar.getInstance();
         Calendar fecha = Calendar.getInstance();
@@ -364,6 +364,7 @@ public class Menu {
                                         barco.getContenedores().add(cont1);   
                                     }
                                     y = ((barco.getContenedores().get(f).getCapacidad())-(barco.getContenedores().get(f).getCargaActual()));
+                                    //try{
                                     if (carga.getPeso()>y){
                                         Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
                                         carga.setPeso(y);
@@ -380,7 +381,10 @@ public class Menu {
                                         barco.getContenedores().get(f).getCarga().add(carga);
                                         barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+carga.getPeso());
                                     }
-                                }
+                                //} catch (Exception e){
+                                    
+                                //}
+                                }    
                             }
                             barco.getRuta().getFechaA().remove(x);
                             barco.getRuta().getPuerto().remove(x);
