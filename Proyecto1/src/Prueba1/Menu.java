@@ -370,11 +370,11 @@ public class Menu {
                                         carga.setPeso(y);
                                         barco.getContenedores().get(f).getCarga().add(carga);
                                         barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCapacidad());
-                                        f+=1;
                                         if ((barco.getContenedores().size()-1)==f){
                                             Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
                                             barco.getContenedores().add(cont1);
                                         }
+                                        f+=1;
                                         barco.getContenedores().get(f).getCarga().add(carga1);
                                         barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
                                     } else {
