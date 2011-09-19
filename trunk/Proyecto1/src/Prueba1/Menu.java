@@ -115,18 +115,6 @@ public class Menu {
         barcosExistentes.add(barco);
     }
     
-    static float estimarPeso(Barco barco){ 
-        float x = 0;
-        for (Barco barquito:barcosExistentes){
-            if (barquito.getNombre().equals(barco.getNombre())){
-               for (Carga producto:barquito.getCargaProg()){
-                   x+=producto.getPeso();
-               } 
-            }
-        }
-        return x;
-    }
-    
     static int comparaPuerto(String puerto){
         for (Puerto x:puertosExistentes){
             if (puerto.equals(x.getNombrePuerto())){
