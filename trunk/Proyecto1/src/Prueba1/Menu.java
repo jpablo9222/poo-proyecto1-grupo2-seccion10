@@ -300,11 +300,8 @@ public class Menu {
         } else {
             for (Barco barco:barcosExistentes){
                 if (!barco.getCargaProg().isEmpty()){
-                    System.out.println("llego a !barco.getcarga.....");
                     for (Calendar fecha2:barco.getRuta().getFechaA()){
-                        System.out.println("llego a fecha2:barco......");
                         if (fecha.after(fecha2)||fecha.equals(fecha2)){
-                            System.out.println("llego a fecha2.....");
                             x = barco.getRuta().getFechaA().indexOf(fecha2);
                             System.out.println("\nFecha: " + date_format.format(fecha.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
                             // Descargue
