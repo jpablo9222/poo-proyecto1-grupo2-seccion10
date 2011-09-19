@@ -89,7 +89,7 @@ public class Menu {
         System.out.println("\nIngreso de Barcos\n");
         do{
             System.out.println("Nombre del Barco: ");
-            teclado.nextLine(); nombre = teclado.nextLine();
+            nombre = teclado.nextLine();
             x = false;
             for(Barco barquito:barcosExistentes){
                 if(barquito.getNombre().equalsIgnoreCase(nombre)){
