@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Prueba1;
 
 /**
@@ -162,7 +158,7 @@ public class Menu {
             for(Carga carguita:cargasExistentes){
                 if(carguita.getCodCarga()==codCarga){
                     System.out.println("Lo Sentimos, Ya Existe Una Carga Con Ese Codigo.");
-                    System.out.println("Ingrese Otro Codigo De Nuevo.");
+                    System.out.println("Ingrese Nuevamente Otro Codigo para la Carga.");
                     x = true;
                 }
             }
@@ -247,7 +243,7 @@ public class Menu {
             for(Ruta rutita:rutasExistentes){
                 if(rutita.getCodRuta()==codigo){
                     System.out.println("Lo Sentimos, Ya Existe Una Ruta Con Ese Codigo.");
-                    System.out.println("Ingrese Otro Codigo De Nuevo.");
+                    System.out.println("Ingrese Nuevamente un Codigo Para la Ruta.");
                     x = true;
                 }
             }
@@ -257,7 +253,9 @@ public class Menu {
             op = " ";
             while( ! op.equalsIgnoreCase("S") && ! op.equalsIgnoreCase("N") ){
                 System.out.println("\n¿Desea Agregar un Puerto a la Ruta? S/N");
-                op = teclado.next();
+                op = teclado.nextLine();
+                if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
+                    System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
             }
 
             if (op.equalsIgnoreCase("S")){
@@ -640,17 +638,21 @@ public class Menu {
     }
     
     public static void main(String[] args){
-        int opcion=0;
+        int opcion=0; boolean seguro = false; String op;
         System.out.println("\tBienvenido");
-        while (opcion!=5){
-           System.out.println("\n\tMenu\n");
-           System.out.println("1. Agregar un Puerto");
-           System.out.println("2. Agregar un Barco");
-           System.out.println("3. Programar envio de Carga");
-           System.out.println("4. Arribar a un Puerto");
-           System.out.println("5. Realizar Consultas");
-           System.out.println("6. Salir");
-           opcion = ingresarInt();
+        while (opcion!=6 && !seguro){
+           do{
+               System.out.println("\n\tMenu\n");
+               System.out.println("1. Agregar un Puerto");
+               System.out.println("2. Agregar un Barco");
+               System.out.println("3. Programar envio de Carga");
+               System.out.println("4. Arribar a un Puerto");
+               System.out.println("5. Realizar Consultas");
+               System.out.println("6. Salir");
+               opcion = ingresarInt();
+               if (opcion<=0||opcion>6)
+                   System.out.println("Lo Sentimos, Debe Ingresar un Numero entre 1 y 6.");
+           }while (opcion<=0||opcion>6);
            
            switch (opcion){
                case 1:
@@ -681,8 +683,17 @@ public class Menu {
                    consultaInformacion();
                    break;
                case 6:
-                   System.out.println("Gracias por utilizar nuestro Programa");
-                   System.out.println("Nos vemos");
+                   do{
+                      System.out.println("¿En Verdad Desea Salir del Programa? S/N");
+                      op = teclado.nextLine();
+                      if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
+                          System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
+                   }while (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"));
+                   if (op.equalsIgnoreCase("S")){
+                       System.out.println("Gracias por utilizar nuestro Programa");
+                       System.out.println("Nos vemos");
+                       seguro = true;
+                   }
                    break;
            }
         }
