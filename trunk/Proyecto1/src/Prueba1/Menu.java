@@ -165,13 +165,13 @@ public class Menu {
             }
         }while(x);
         System.out.println("Dueño de la Carga: ");
-        dueño = teclado.next();
+        dueño = teclado.nextLine();
         System.out.println("Descripcion de la Carga: ");
-        descripcion = teclado.next();
+        descripcion = teclado.nextLine();
         
         do{
             System.out.println("Nombre del Puerto de Origen: ");
-            puerto = teclado.next();
+            puerto = teclado.nextLine();
             if (comparaPuerto(puerto)==-1)
                 System.out.println("Lo sentimos, ese puerto no Existe.");
         } while (comparaPuerto(puerto)==-1);
@@ -179,7 +179,7 @@ public class Menu {
         
         do{
             System.out.println("Nombre del Puerto de Destino: ");
-            puerto = teclado.next();
+            puerto = teclado.nextLine();
             if (comparaPuerto(puerto)==-1)
                 System.out.println("Lo sentimos, ese puerto no Existe.");
         } while (comparaPuerto(puerto)==-1);
