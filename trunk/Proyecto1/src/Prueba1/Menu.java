@@ -271,7 +271,7 @@ public class Menu {
                         System.out.println("Lo sentimos, ese Puerto no Existe");  
                 }
                 ruta.getPuerto().add(puertosExistentes.get(y-1));
-                System.out.println("Fecha Estimada de Arribo:");
+                System.out.println("\nFecha Estimada de Arribo:");
                 if (ruta.getFechaA().isEmpty()){
                     fecha = ingresarFecha();
                     ruta.getFechaA().add(fecha);
