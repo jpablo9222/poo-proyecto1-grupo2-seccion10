@@ -46,10 +46,11 @@ public class Menu {
     
     static void IngresarPuerto(){
         String nombre, pais, coordenadas; boolean x;
-        System.out.println("Ingreso de Puertos");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\nIngreso de Puertos");
         do{
             System.out.println("\nNombre del Puerto: ");
-            teclado.nextLine(); nombre = teclado.nextLine();
+            nombre = teclado.nextLine();
             x = false;
             for(Puerto puertito:puertosExistentes){
                 if(puertito.getNombrePuerto().equalsIgnoreCase(nombre)){
@@ -84,8 +85,8 @@ public class Menu {
         float capacidadMaxima;
         int capacidadCont;
         Ruta ruta; boolean x;
-        
-        System.out.println("Ingreso de Barcos\n");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\nIngreso de Barcos\n");
         do{
             System.out.println("Nombre del Barco: ");
             teclado.nextLine(); nombre = teclado.nextLine();
@@ -149,8 +150,8 @@ public class Menu {
         Puerto origen = new Puerto("","","");
         Puerto destino = new Puerto("","","");
         ArrayList<Barco> temp = new ArrayList<Barco>();
-        
-        System.out.println("\tIngreso de Carga\n");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\nIngreso de Carga\n");
         do{
             System.out.println("Codigo de la Carga: ");
             codCarga = ingresarInt();
@@ -235,7 +236,7 @@ public class Menu {
         Ruta ruta; Calendar fecha; boolean x;
         String op = "s"; int y=0, codigo; 
         
-        System.out.println("\tIngreso de Ruta");
+        System.out.println("\n\tIngreso de Ruta");
         do{
             System.out.println("Codigo de la Ruta: ");
             codigo = ingresarInt();
@@ -387,7 +388,8 @@ public class Menu {
         Calendar fechaMenor = Calendar.getInstance();
         Calendar fecha1 = Calendar.getInstance();
         fechaMenor.set(3000, 12, 1, 0, 0, 0);
-        System.out.println("\tArribo a un Puerto");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\nArribo a un Puerto");
         for (int x=0; x<barcosExistentes.size(); x++){
             if (barcosExistentes.get(x).getRuta().getFechaA().get(0).before(fechaMenor)){
                 fechaMenor = barcosExistentes.get(x).getRuta().getFechaA().get(0);
@@ -573,8 +575,9 @@ public class Menu {
     
     static void consultaInformacion(){
         int op;
+        System.out.println("\n-------------------------------------------------");
         do {
-            System.out.println("¿Que Informacion Desea Consultar?\n");
+            System.out.println("\n¿Que Informacion Desea Consultar?\n");
             System.out.println("1.) Puertos registrados.");
             System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo destino es un puerto específico.");
             System.out.println("3.) La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
