@@ -117,8 +117,12 @@ public class Menu {
     
     static float estimarPeso(Barco barco){ 
         float x = 0;
-        for (Carga producto:barco.getCargaProg()){
-            x+=producto.getPeso();
+        for (Barco barquito:barcosExistentes){
+            if (barquito.getNombre().equals(barco.getNombre())){
+               for (Carga producto:barquito.getCargaProg()){
+                   x+=producto.getPeso();
+               } 
+            }
         }
         return x;
     }
@@ -198,7 +202,7 @@ public class Menu {
         System.out.println("Barcos Recomendados:\n");
         for (Barco barquito:temp){
             i+=1;
-            System.out.println(i+".) " + barquito.getNombre() + ", Espacio Disponible: " + (barquito.getCapacidad()-estimarPeso(barquito)));
+            System.out.println(i+".) " + barquito.getNombre() + ", Espacio Disponible: " + (barquito.getCapacidad()-(estimarPeso(barquito))));
         }
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
