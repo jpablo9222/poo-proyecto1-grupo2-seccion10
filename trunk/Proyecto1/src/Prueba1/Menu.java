@@ -287,7 +287,7 @@ public class Menu {
         int x; float y;
         ArrayList<Carga> temp = new ArrayList<Carga>();
         for (Barco barco:barcosExistentes){
-            if (! barco.getCargaProg().isEmpty()){
+            if (!barco.getCargaProg().isEmpty()){
                 for (Calendar fecha2:barco.getRuta().getFechaA()){
                     if (fecha.after(fecha2)||fecha.equals(fecha2)){
                         x = barco.getRuta().getFechaA().indexOf(fecha2);
