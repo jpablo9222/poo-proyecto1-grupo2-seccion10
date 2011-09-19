@@ -282,122 +282,117 @@ public class Menu {
         rutasExistentes.add(ruta);
         return ruta;
     }
-    
-    static void consolidarCarga(Calendar fecha){
-        int x; float y;
-        ArrayList<Carga> temp = new ArrayList<Carga>();
-        for (Barco barco:barcosExistentes){
-            if (!barco.getCargaProg().isEmpty()){
-                for (Calendar fecha2:barco.getRuta().getFechaA()){
-                    if (fecha.after(fecha2)||fecha.equals(fecha2)){
-                        x = barco.getRuta().getFechaA().indexOf(fecha2);
-                        System.out.println("\nFecha: " + date_format.format(fecha.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
-                        // Descargue
-                        for (Carga carga:barco.getCargaProg()){
-                            if (carga.getDestino().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
-                                System.out.println("Descargue:");
-                                System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
-                                System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
-                                for (Contenedor cont:barco.getContenedores()){
-                                    for(Carga charge:cont.getCarga()){
-                                        if (charge.getCodCarga()==carga.getCodCarga()){
-                                            cont.getCarga().remove(cont.getCarga().indexOf(charge));
-                                            cont.setCargaActual(cont.getCargaActual()-charge.getPeso());
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        // Consolidar Carga de Nuevo
-                        for (Contenedor cont:barco.getContenedores()){
-                            for (Carga charge:cont.getCarga()){
-                                temp.add(charge);
-                            }
-                            cont.getCarga().clear(); cont.setCargaActual(0);
-                        }
-                        if (temp.size()>=2){
-                            for (int i=0; i<=(temp.size()-2); i++){
-                                if (temp.get(i).getCodCarga()==temp.get(i+1).getCodCarga()){
-                                    temp.get(i).addPeso(temp.get(i+1).getPeso());
-                                    temp.remove(i+1);
-                                }
-                            }
-                        }
-                        int f = 0;
-                        for (Carga charge:temp){
-                            y = (barco.getContenedores().get(f).getCapacidad()-barco.getContenedores().get(f).getCargaActual());
-                            if (charge.getPeso()>y){
-                                Carga carga1 = new Carga (charge.getCodCarga(), charge.getDueño(), charge.getDescripcion(), (charge.getPeso()-y), charge.getOrigen(), charge.getDestino());
-                                charge.setPeso(y);
-                                barco.getContenedores().get(f).getCarga().add(charge);
-                                barco.getContenedores().get(f).setCargaActual(y);
-                                f+=1;
-                                barco.getContenedores().get(f).getCarga().add(carga1);
-                                barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
-                            } else {
-                                barco.getContenedores().get(f).getCarga().add(charge);
-                                barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+charge.getPeso());
-                            }
-                        }
-                        // Cargue
-                        f = 0;
-                        for (Carga carga:barco.getCargaProg()){
-                            if (carga.getOrigen().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
-                                System.out.println("Cargue:");
-                                System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
-                                System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
-                                
-                                if (barco.getContenedores().isEmpty()){
-                                    Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
-                                    barco.getContenedores().add(cont1);   
-                                }
-                                y = (barco.getContenedores().get(f).getCapacidad()-barco.getContenedores().get(f).getCargaActual());
-                                if (carga.getPeso()>y){
-                                    Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
-                                    carga.setPeso(y);
-                                    barco.getContenedores().get(f).getCarga().add(carga);
-                                    barco.getContenedores().get(f).setCargaActual(y);
-                                    f+=1;
-                                    if ((barco.getContenedores().size()-1)==f){
-                                        Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
-                                        barco.getContenedores().add(cont1);
-                                    }
-                                    barco.getContenedores().get(f).getCarga().add(carga1);
-                                    barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
-                                } else {
-                                    barco.getContenedores().get(f).getCarga().add(carga);
-                                    barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+carga.getPeso());
-                                }
-                            }
-                        }
-                        barco.getRuta().getFechaA().remove(x);
-                        barco.getRuta().getPuerto().remove(x);
-                    }  
-                }
-            }
-        }
-        
-    }
 
     static void arriboPuerto(){
+        int x; float y;
+        ArrayList<Carga> temp = new ArrayList<Carga>();
         Calendar fechaMenor = Calendar.getInstance();
-        Calendar fecha1 = Calendar.getInstance();
+        Calendar fecha = Calendar.getInstance();
         fechaMenor.set(3000, 12, 1, 0, 0, 0);
         System.out.println("\n-------------------------------------------------");
         System.out.println("\nArribo a un Puerto");
-        for (int x=0; x<barcosExistentes.size(); x++){
-            if (barcosExistentes.get(x).getRuta().getFechaA().get(0).before(fechaMenor)){
-                fechaMenor = barcosExistentes.get(x).getRuta().getFechaA().get(0);
+        for (int w=0; w<barcosExistentes.size(); w++){
+            if (barcosExistentes.get(w).getRuta().getFechaA().get(0).before(fechaMenor)){
+                fechaMenor = barcosExistentes.get(w).getRuta().getFechaA().get(0);
             }
         }
         System.out.println("En esta sección se Calculan todos los Cargues y Descargues automáticamente");
         System.out.println("\nIngrese la Fecha Actual: ");
         
-        fecha1 = ingresarFecha();
-        if (fecha1.before(fechaMenor)){
+        fecha = ingresarFecha();
+        if (fecha.before(fechaMenor)){
             System.out.println("Lo sentimos, a tal Fecha no hay actividad alguna.");
         } else {
-            consolidarCarga(fecha1);
+            for (Barco barco:barcosExistentes){
+                if (!barco.getCargaProg().isEmpty()){
+                    for (Calendar fecha2:barco.getRuta().getFechaA()){
+                        if (fecha.after(fecha2)||fecha.equals(fecha2)){
+                            x = barco.getRuta().getFechaA().indexOf(fecha2);
+                            System.out.println("\nFecha: " + date_format.format(fecha.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
+                            // Descargue
+                            for (Carga carga:barco.getCargaProg()){
+                                if (carga.getDestino().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
+                                    System.out.println("Descargue:");
+                                    System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
+                                    System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
+                                    for (Contenedor cont:barco.getContenedores()){
+                                        for(Carga charge:cont.getCarga()){
+                                            if (charge.getCodCarga()==carga.getCodCarga()){
+                                                cont.getCarga().remove(cont.getCarga().indexOf(charge));
+                                                cont.setCargaActual(cont.getCargaActual()-charge.getPeso());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            // Consolidar Carga de Nuevo
+                            for (Contenedor cont:barco.getContenedores()){
+                                for (Carga charge:cont.getCarga()){
+                                    temp.add(charge);
+                                }
+                                cont.getCarga().clear(); cont.setCargaActual(0);
+                            }
+                            if (temp.size()>=2){
+                                for (int i=0; i<=(temp.size()-2); i++){
+                                    if (temp.get(i).getCodCarga()==temp.get(i+1).getCodCarga()){
+                                        temp.get(i).addPeso(temp.get(i+1).getPeso());
+                                        temp.remove(i+1);
+                                    }
+                                }
+                            }
+                            int f = 0;
+                            for (Carga charge:temp){
+                                y = (barco.getContenedores().get(f).getCapacidad()-barco.getContenedores().get(f).getCargaActual());
+                                if (charge.getPeso()>y){
+                                    Carga carga1 = new Carga (charge.getCodCarga(), charge.getDueño(), charge.getDescripcion(), (charge.getPeso()-y), charge.getOrigen(), charge.getDestino());
+                                    charge.setPeso(y);
+                                    barco.getContenedores().get(f).getCarga().add(charge);
+                                    barco.getContenedores().get(f).setCargaActual(y);
+                                    f+=1;
+                                    barco.getContenedores().get(f).getCarga().add(carga1);
+                                    barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
+                                } else {
+                                    barco.getContenedores().get(f).getCarga().add(charge);
+                                    barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+charge.getPeso());
+                                }
+                            }
+                            // Cargue
+                            f = 0;
+                            for (Carga carga:barco.getCargaProg()){
+                                if (carga.getOrigen().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
+                                    System.out.println("Cargue:");
+                                    System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
+                                    System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
+                                
+                                    if (barco.getContenedores().isEmpty()){
+                                        Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
+                                        barco.getContenedores().add(cont1);   
+                                    }
+                                    y = (barco.getContenedores().get(f).getCapacidad()-barco.getContenedores().get(f).getCargaActual());
+                                    if (carga.getPeso()>y){
+                                        Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
+                                        carga.setPeso(y);
+                                        barco.getContenedores().get(f).getCarga().add(carga);
+                                        barco.getContenedores().get(f).setCargaActual(y);
+                                        f+=1;
+                                        if ((barco.getContenedores().size()-1)==f){
+                                            Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
+                                            barco.getContenedores().add(cont1);
+                                        }
+                                        barco.getContenedores().get(f).getCarga().add(carga1);
+                                        barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
+                                    } else {
+                                        barco.getContenedores().get(f).getCarga().add(carga);
+                                        barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+carga.getPeso());
+                                    }
+                                }
+                            }
+                            barco.getRuta().getFechaA().remove(x);
+                            barco.getRuta().getPuerto().remove(x);
+                        }  
+                    }
+                }
+            }
             System.out.println("Chilerisimo :D");
         }
         
