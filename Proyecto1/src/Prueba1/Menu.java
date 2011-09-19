@@ -189,10 +189,12 @@ public class Menu {
             b1 = false; b2 = false;
             for (Puerto puertito:barco.getRuta().getPuerto()){
                 ind = barco.getRuta().getPuerto().indexOf(puertito);
-                if ((puertito.getNombrePuerto().equals(origen.getNombrePuerto()))&&(ind!=(barco.getRuta().getPuerto().size()-1)))
+                if ((puertito.getNombrePuerto().equals(origen.getNombrePuerto()))){
                     b1 = true; ind1 = ind;
-                if ((puertito.getNombrePuerto().equals(destino.getNombrePuerto()))&&(ind!=0))
+                }   
+                if ((puertito.getNombrePuerto().equals(destino.getNombrePuerto()))){
                     b2 = true; ind2 = ind;
+                }      
             }
             if (b1 && b2){
                 if (ind2>ind1){
