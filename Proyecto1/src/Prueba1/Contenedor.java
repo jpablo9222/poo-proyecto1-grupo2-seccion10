@@ -18,6 +18,7 @@ public class Contenedor {
     public Contenedor(float capacidad)
     {
         codContenedor += 1; capacidad_maxima = capacidad; cargaActual = 0;
+        cargas = new ArrayList<Carga>();
     }
     
    /**
