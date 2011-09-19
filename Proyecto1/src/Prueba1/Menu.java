@@ -282,6 +282,7 @@ public class Menu {
         int x; float y=0;
         ArrayList<Carga> temp = new ArrayList<Carga>();
         ArrayList<Integer> index = new ArrayList<Integer>();
+        ArrayList<Integer> index2 = new ArrayList<Integer>();
         Calendar fechaMenor = Calendar.getInstance();
         Calendar fecha = Calendar.getInstance();
         fechaMenor.set(3000, 12, 1, 0, 0, 0);
@@ -315,10 +316,13 @@ public class Menu {
                                     for (Contenedor cont:barco.getContenedores()){
                                         for(Carga charge:cont.getCarga()){
                                             if (charge.getCodCarga()==carga.getCodCarga()){
-                                                cont.getCarga().remove(cont.getCarga().indexOf(charge));
-                                                cont.setCargaActual(cont.getCargaActual()-charge.getPeso());
+                                                index2.add(cont.getCarga().indexOf(charge));
                                             }
                                         }
+                                        for (int d=0;d<=index2.size(); d++){
+                                            cont.setCargaActual(cont.getCargaActual()-cont.getCarga().get(index2.get(d)).getPeso());
+                                            cont.getCarga().remove(cont.getCarga().get(index2.get(d)));
+                                        } 
                                     }
                                 }
                             }
