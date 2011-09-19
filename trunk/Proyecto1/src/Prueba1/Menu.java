@@ -129,7 +129,7 @@ public class Menu {
         float peso, pesoEstimado; boolean b1, b2,x;
         Puerto origen = new Puerto("","","");
         Puerto destino = new Puerto("","","");
-        ArrayList<Barco> temp = new ArrayList<Barco>();
+        ArrayList<Integer> temp = new ArrayList<Integer>();
         System.out.println("\n-------------------------------------------------");
         System.out.println("\nIngreso de Carga\n");
         do{
@@ -178,7 +178,7 @@ public class Menu {
             }
             if (b1 && b2){
                 if (ind2>ind1){
-                    temp.add(barco);
+                    temp.add(barcosExistentes.indexOf(barco));
                 }     
             }
         }
@@ -188,13 +188,13 @@ public class Menu {
             return;
         } 
         System.out.println("Barcos Recomendados:\n");
-        for (Barco barquito:temp){
+        for (Integer b:temp){
             i+=1;
             pesoEstimado=0;
-            for (Carga producto:barquito.getCargaProg()){
+            for (Carga producto:barcosExistentes.get(b).getCargaProg()){
                    pesoEstimado+=producto.getPeso();
             } 
-            System.out.println(i+".) " + barquito.getNombre() + ", Espacio Disponible: " + (barquito.getCapacidad()-pesoEstimado));
+            System.out.println(i+".) " + barcosExistentes.get(b).getNombre() + ", Espacio Disponible: " + (barcosExistentes.get(b).getCapacidad()-pesoEstimado));
         }
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
@@ -203,19 +203,19 @@ public class Menu {
                 System.out.println("Esa no es una opcion valida.");
         }
         pesoEstimado=0;
-        for (Carga producto:temp.get(y-1).getCargaProg()){
+        for (Carga producto:barcosExistentes.get(temp.get(y-1)).getCargaProg()){
             pesoEstimado+=producto.getPeso();
         }
         do{
             System.out.println("Peso de la Carga: ");
             peso = ingresarFloat(); 
-            if (peso>(temp.get(y-1).getCapacidad()-pesoEstimado))
+            if (peso>barcosExistentes.get(temp.get(y-1)).getCapacidad()-pesoEstimado)
                 System.out.println("Lo siento, el barco no puede soportar tanta carga");
-        } while (peso>(temp.get(y-1).getCapacidad()-pesoEstimado));
+        } while (peso>(barcosExistentes.get(temp.get(y-1)).getCapacidad()-pesoEstimado));
         
         Carga carga = new Carga(codCarga, dueño, descripcion, peso, origen, destino);
         for (Barco barco1:barcosExistentes){
-            if (barco1.getNombre().equals(temp.get(y-1).getNombre())){
+            if (barco1.getNombre().equals(barcosExistentes.get(temp.get(y-1)).getNombre())){
                 barco1.getCargaProg().add(carga);
                 cargasExistentes.add(carga);
             }
