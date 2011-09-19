@@ -392,8 +392,8 @@ public class Menu {
                         }  
                     }
                     for (int d=0; d<=index.size(); d++){
-                        barco.getRuta().getFechaA().remove(d);
-                        barco.getRuta().getPuerto().remove(d);
+                        barco.getRuta().getFechaA().remove(barco.getRuta().getFechaA().get(d));
+                        barco.getRuta().getPuerto().remove(barco.getRuta().getPuerto().get(d));
                     }
                     
                 }
