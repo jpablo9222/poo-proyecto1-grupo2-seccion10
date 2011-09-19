@@ -270,8 +270,8 @@ public class Menu {
                         if (!fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)))
                             System.out.println("Lo Sentimos, Debe Ingresar Una Fecha Posterior a la Parada Anterior.\n");
                     } while (!fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
+                    ruta.getFechaA().add(fecha);
                 }
-                ruta.getFechaA().add(fecha);  
             }
         }
         rutasExistentes.add(ruta);
@@ -302,9 +302,10 @@ public class Menu {
             for (Barco barco:barcosExistentes){
                 if (!barco.getCargaProg().isEmpty()){
                     for (Calendar fecha2:barco.getRuta().getFechaA()){
-                        if (fecha.after(fecha2)||fecha.equals(fecha2)){
+                        System.out.println(date_format.format(fecha2.getTime()));
+                        if (fecha2.before(fecha)){
                             x = barco.getRuta().getFechaA().indexOf(fecha2);
-                            System.out.println("\nFecha: " + date_format.format(fecha.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
+                            System.out.println("\nFecha: " + date_format.format(fecha2.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
                             // Descargue
                             for (Carga carga:barco.getCargaProg()){
                                 if (carga.getDestino().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
