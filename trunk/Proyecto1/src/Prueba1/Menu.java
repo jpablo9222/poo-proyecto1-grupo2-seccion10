@@ -77,7 +77,7 @@ public class Menu {
         
         Puerto puerto = new Puerto (nombre, pais, coordenadas);
         puertosExistentes.add(puerto);
-        System.out.println("Puerto Ingresado Exitosamente");
+        System.out.println("Puerto Ingresado Exitosamente.");
     }
     
     static void IngresarBarco(){
