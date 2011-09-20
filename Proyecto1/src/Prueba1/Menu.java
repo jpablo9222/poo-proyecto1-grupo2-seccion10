@@ -240,15 +240,10 @@ public class Menu {
             }
         }while(x);
         ruta = new Ruta(codigo);
-        while (op.equalsIgnoreCase("S")){
-            op = " ";
-            while( ! op.equalsIgnoreCase("S") && ! op.equalsIgnoreCase("N") ){
-                System.out.println("\n¿Desea Agregar un Puerto a la Ruta? S/N");
-                op = teclado.nextLine();
-                if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
-                    System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
-            }
-
+        System.out.println("Ahora Debe Ingresar Los Puertos a Visitar");
+        System.out.println("Le Recordamos que Debe Visitar Al Menos Dos Puertos");
+        while (op.equalsIgnoreCase("S")||(ruta.getPuerto().size()<2)){
+            op = "S";
             if (op.equalsIgnoreCase("S")){
                 System.out.println("Puertos Existentes:");
                 listaPuertos();
@@ -272,6 +267,13 @@ public class Menu {
                     } while (!fecha.after(ruta.getFechaA().get(ruta.getFechaA().size()-1)));
                     ruta.getFechaA().add(fecha);
                 }
+            }
+            op = "";
+            while(!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N") ){
+                System.out.println("\n¿Desea Agregar un Puerto a la Ruta? S/N");
+                op = teclado.nextLine();
+                if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
+                    System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
             }
         }
         rutasExistentes.add(ruta);
