@@ -184,17 +184,17 @@ public class Menu {
         }
         
         if (temp.isEmpty()){
-            System.out.println("Lo Sentimos, Ningun Barco Cumple Con Los Puertos de la Carga");
+            System.out.println("\nLo Sentimos, Ningun Barco Cumple Con Los Puertos de la Carga");
             return;
         } 
-        System.out.println("Barcos Recomendados:\n");
+        System.out.println("\nBarcos Recomendados:");
         for (Integer b:temp){
             i+=1;
             pesoEstimado=0;
             for (Carga producto:barcosExistentes.get(b).getCargaProg()){
                    pesoEstimado+=producto.getPeso();
             } 
-            System.out.println(i+".) " + barcosExistentes.get(b).getNombre() + ", Espacio Disponible: " + (barcosExistentes.get(b).getCapacidad()-pesoEstimado));
+            System.out.println(i+".) " + barcosExistentes.get(b).getNombre() + ", Espacio Disponible: " + (barcosExistentes.get(b).getCapacidad()-pesoEstimado) + "\n");
         }
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
@@ -240,12 +240,12 @@ public class Menu {
             }
         }while(x);
         ruta = new Ruta(codigo);
-        System.out.println("Ahora Debe Ingresar Los Puertos a Visitar");
-        System.out.println("Le Recordamos que Debe Visitar Al Menos Dos Puertos");
+        System.out.println("\nAhora Debe Ingresar Los Puertos a Visitar");
+        System.out.println("Le Recordamos que Debe Visitar Al Menos Dos Puertos\n");
         while ((op.equalsIgnoreCase("S")||(ruta.getPuerto().size()<2))&&(ruta.getPuerto().size()<puertosExistentes.size())){
             op = "S";
             if (op.equalsIgnoreCase("S")){
-                System.out.println("Puertos Existentes:");
+                System.out.println("\nPuertos Existentes:");
                 listaPuertos();
                 y = 0; bandera = true;
                 while (y<=0||y>puertosExistentes.size()||bandera){
@@ -276,15 +276,16 @@ public class Menu {
                 }
             }
             op = "";
+            if (ruta.getPuerto().size()==puertosExistentes.size()){
+                System.out.println("Se Han Ingresado Todos Los Puertos Posibles a La Ruta.");
+                System.out.println("Ya No Se Podra Seguir Agregando Mas Puertos.");
+                op = "N";
+            }
             while(!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N") ){
                 System.out.println("\n¿Desea Agregar un Puerto a la Ruta? S/N");
                 op = teclado.nextLine();
                 if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
                     System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
-            }
-            if (ruta.getPuerto().size()==puertosExistentes.size()){
-                System.out.println("Se Han Ingresado Todos Los Puertos Posibles a La Ruta.");
-                System.out.println("Ya No Se Podra Seguir Agregando Mas Puertos.");
             }
         }
         rutasExistentes.add(ruta);
@@ -306,7 +307,7 @@ public class Menu {
                 fechaMenor = barcosExistentes.get(w).getRuta().getFechaA().get(0);
             }
         }
-        System.out.println("En esta sección se Calculan todos los Cargues y Descargues automáticamente");
+        System.out.println("\nEn esta sección se Calculan todos los Cargues y Descargues automáticamente");
         System.out.println("\nIngrese la Fecha Actual: ");
         
         fecha = ingresarFecha();
@@ -316,10 +317,10 @@ public class Menu {
             for (Barco barco:barcosExistentes){
                 if (!barco.getCargaProg().isEmpty()){
                     for (Calendar fecha2:barco.getRuta().getFechaA()){
-                        System.out.println(date_format.format(fecha2.getTime()));
                         if (fecha2.before(fecha)){
                             x = barco.getRuta().getFechaA().indexOf(fecha2);
-                            System.out.println("\nFecha: " + date_format.format(fecha2.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
+                            System.out.println("\nArribo del Barco: " + barco.getNombre());
+                            System.out.println("Fecha: " + date_format.format(fecha2.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
                             // Descargue
                             for (Carga carga:barco.getCargaProg()){
                                 if (carga.getDestino().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
@@ -401,9 +402,7 @@ public class Menu {
                                     }
                                 }    
                             }
-                            System.out.println(x);
                             index.add(x);
-                            System.out.println("El size de index es :"+index.size());
                         }  
                     }
                     for (int d=(index.size()-1); d>=0; d--){
