@@ -113,6 +113,7 @@ public class Menu {
         Barco barco = new Barco(nombre, naviera, pnaviera, capacidadMaxima,
                                 capacidadCont, ruta, capitan);
         barcosExistentes.add(barco);
+        System.out.println("Barco Agregado Existosamente.");
     }
     
     static int comparaPuerto(String puerto){
