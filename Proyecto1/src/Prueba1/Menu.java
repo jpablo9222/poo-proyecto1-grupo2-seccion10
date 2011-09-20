@@ -47,7 +47,7 @@ public class Menu {
     static void IngresarPuerto(){
         String nombre, pais, coordenadas; boolean x;
         System.out.println("\n-------------------------------------------------");
-        System.out.println("\nIngreso de Puertos");
+        System.out.println("\tIngreso de Puertos");
         do{
             System.out.println("\nNombre del Puerto: ");
             nombre = teclado.nextLine();
@@ -86,7 +86,7 @@ public class Menu {
         int capacidadCont;
         Ruta ruta; boolean x;
         System.out.println("\n-------------------------------------------------");
-        System.out.println("\nIngreso de Barcos\n");
+        System.out.println("\tIngreso de Barcos\n");
         do{
             System.out.println("Nombre del Barco: ");
             nombre = teclado.nextLine();
@@ -131,7 +131,7 @@ public class Menu {
         Puerto destino = new Puerto("","","");
         ArrayList<Integer> temp = new ArrayList<Integer>();
         System.out.println("\n-------------------------------------------------");
-        System.out.println("\nIngreso de Carga\n");
+        System.out.println("\tIngreso de Carga\n");
         do{
             System.out.println("Codigo de la Carga: ");
             codCarga = ingresarInt();
@@ -287,7 +287,7 @@ public class Menu {
         Calendar fecha = Calendar.getInstance();
         fechaMenor.set(3000, 12, 1, 0, 0, 0);
         System.out.println("\n-------------------------------------------------");
-        System.out.println("\nArribo a un Puerto");
+        System.out.println("\tArribo a un Puerto");
         for (int w=0; w<barcosExistentes.size(); w++){
             if (barcosExistentes.get(w).getRuta().getFechaA().get(0).before(fechaMenor)){
                 fechaMenor = barcosExistentes.get(w).getRuta().getFechaA().get(0);
@@ -416,13 +416,15 @@ public class Menu {
     }
     
     static void c1(){
-        System.out.println("\nPuertos Registrados: ");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\tPuertos Registrados: ");
         listaPuertos();
     }
     
     static void c2(){
         int y = 0,x = 0;
-        System.out.println("Puertos Existentes");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\tPuertos Existentes");
         listaPuertos();
         while (y<=0||y>puertosExistentes.size()){
             System.out.println("¿Cual puerto desea analizar?");
@@ -445,7 +447,8 @@ public class Menu {
     
     static void c3(){
         int i = 0, y = 0, z=0, f=0;
-        System.out.println("Barcos Existentes");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\tBarcos Existentes");
         for (Barco x:barcosExistentes){
             i = i+1;
             System.out.println(i+".) " + x.getNombre());
@@ -478,7 +481,6 @@ public class Menu {
     static Calendar ingresarFecha(){
         int dia, mes, año;
         Calendar fecha;
-        System.out.println("Ingrese la Fecha a Analizar\n");
         do{
             System.out.println("Dia: ");
             dia = ingresarInt();
@@ -504,7 +506,8 @@ public class Menu {
     
     static void c4(){
         Calendar fecha; int x = 0;
-        System.out.println("Ingrese la Fecha a Analizar");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\tIngrese la Fecha a Analizar");
         fecha = ingresarFecha();
         System.out.println("\nPara la Fecha de "+ date_format.format(fecha.getTime())+" habran:");
         for (Puerto puerto:puertosExistentes){
@@ -527,7 +530,8 @@ public class Menu {
     
     static void c5(){
         Calendar fecha1, fecha2; boolean x;
-        System.out.println("Ingrese el Intervalo de Tiempo a Revisar");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("tIngrese el Intervalo de Tiempo a Revisar");
         System.out.println("Fecha de Inicio:");
         fecha1 = ingresarFecha();
         do{
@@ -555,7 +559,8 @@ public class Menu {
     
     static void c6(){
         int y = 0;
-        System.out.println("Puertos Existentes");
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("\tPuertos Existentes");
         listaPuertos();
         while (y<=0||y>puertosExistentes.size()){
             System.out.println("¿Cual puerto desea analizar?");
@@ -576,7 +581,7 @@ public class Menu {
         int op;
         System.out.println("\n-------------------------------------------------");
         do {
-            System.out.println("\n¿Que Informacion Desea Consultar?\n");
+            System.out.println("\t¿Que Informacion Desea Consultar?\n");
             System.out.println("1.) Puertos registrados.");
             System.out.println("2.) Cantidad de contenedores ya cargados en un barco, cuyo destino es un puerto específico.");
             System.out.println("3.) La ruta que seguirá un barco, indicado los puertos y contenedores que actualmente hay que desembarcar en cada uno de esos puertos.");
@@ -644,7 +649,8 @@ public class Menu {
         System.out.println("\tBienvenido");
         while (opcion!=6 && !seguro){
            do{
-               System.out.println("\n\tMenu\n");
+               System.out.println("\n-------------------------------------------------");
+               System.out.println("\tMenu\n");
                System.out.println("1. Agregar un Puerto");
                System.out.println("2. Agregar un Barco");
                System.out.println("3. Programar envio de Carga");
@@ -661,8 +667,8 @@ public class Menu {
                    IngresarPuerto();
                    break;
                case 2:
-                   if (puertosExistentes.isEmpty()){
-                       System.out.println("Lo Lamento, Debe Ingresar Puertos Antes de Poder Ingresar un Barco.");
+                   if (puertosExistentes.size()<2){
+                       System.out.println("Lo Lamento, Debe Ingresar Al Menos 2 Puertos Antes de Poder Ingresar un Barco.");
                    }else{
                        IngresarBarco();
                    }
