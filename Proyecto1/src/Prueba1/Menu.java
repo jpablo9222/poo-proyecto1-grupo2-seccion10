@@ -288,13 +288,16 @@ public class Menu {
                 if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
                     System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
             }
+            if (ruta.getPuerto().size()<2){
+                System.out.println("Lo Sentimos, Debe Agregar Al Menos Dos Puertos A La Ruta.");
+            }
         }
         rutasExistentes.add(ruta);
         return ruta;
     }
 
     static void arriboPuerto(){
-        int x; float y=0;
+        int x; float y=0, cargaTemp;
         ArrayList<Carga> temp = new ArrayList<Carga>();
         ArrayList<Integer> index = new ArrayList<Integer>();
         ArrayList<Integer> index2 = new ArrayList<Integer>();
@@ -388,8 +391,8 @@ public class Menu {
                                     y = ((barco.getContenedores().get(f).getCapacidad())-(barco.getContenedores().get(f).getCargaActual()));
                                     if (carga.getPeso()>y){
                                         Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
-                                        carga.setPeso(y);
-                                        barco.getContenedores().get(f).getCarga().add(carga);
+                                        Carga carga2 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), y, carga.getOrigen(), carga.getDestino());
+                                        barco.getContenedores().get(f).getCarga().add(carga2);
                                         barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCapacidad());
                                         if ((barco.getContenedores().size()-1)==f){
                                             Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
@@ -399,7 +402,8 @@ public class Menu {
                                         barco.getContenedores().get(f).getCarga().add(carga1);
                                         barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
                                     } else {
-                                        barco.getContenedores().get(f).getCarga().add(carga);
+                                        Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), carga.getPeso(), carga.getOrigen(), carga.getDestino());
+                                        barco.getContenedores().get(f).getCarga().add(carga1);
                                         barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+carga.getPeso());
                                     }
                                 }    
