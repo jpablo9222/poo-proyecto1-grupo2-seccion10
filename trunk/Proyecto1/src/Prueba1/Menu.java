@@ -223,7 +223,7 @@ public class Menu {
     }
        
     static Ruta IngresarRuta(){
-        Ruta ruta; Calendar fecha; boolean x;
+        Ruta ruta; Calendar fecha; boolean x, bandera;
         String op = "s"; int y=0, codigo; 
         
         System.out.println("\n\tIngreso de Ruta");
@@ -242,17 +242,24 @@ public class Menu {
         ruta = new Ruta(codigo);
         System.out.println("Ahora Debe Ingresar Los Puertos a Visitar");
         System.out.println("Le Recordamos que Debe Visitar Al Menos Dos Puertos");
-        while (op.equalsIgnoreCase("S")||(ruta.getPuerto().size()<2)){
+        while ((op.equalsIgnoreCase("S")||(ruta.getPuerto().size()<2))&&(ruta.getPuerto().size()<puertosExistentes.size())){
             op = "S";
             if (op.equalsIgnoreCase("S")){
                 System.out.println("Puertos Existentes:");
                 listaPuertos();
-                y = 0;
-                while (y<=0||y>puertosExistentes.size()){
+                y = 0; bandera = true;
+                while (y<=0||y>puertosExistentes.size()||bandera){
                     System.out.println("Seleccione el Puerto a Agregar: ");
                     y = ingresarInt();
                     if (y<=0||y>puertosExistentes.size())
-                        System.out.println("Lo sentimos, ese Puerto no Existe");  
+                        System.out.println("Lo sentimos, ese Puerto no Existe");
+                    bandera = false;
+                    for (Puerto puertito:ruta.getPuerto()){
+                        if (puertosExistentes.get(y-1).getNombrePuerto().equals(puertito.getNombrePuerto())){
+                            System.out.println("Lo Sentimos, Solo Puede Ingresar Una Vez Un Puerto");
+                            bandera = true;
+                        }
+                    }
                 }
                 ruta.getPuerto().add(puertosExistentes.get(y-1));
                 System.out.println("\nFecha Estimada de Arribo:");
@@ -274,6 +281,10 @@ public class Menu {
                 op = teclado.nextLine();
                 if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
                     System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
+            }
+            if (ruta.getPuerto().size()==puertosExistentes.size()){
+                System.out.println("Se Han Ingresado Todos Los Puertos Posibles a La Ruta.");
+                System.out.println("Ya No Se Podra Seguir Agregando Mas Puertos.");
             }
         }
         rutasExistentes.add(ruta);
