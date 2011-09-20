@@ -319,7 +319,7 @@ public class Menu {
                                                 index2.add(cont.getCarga().indexOf(charge));
                                             }
                                         }
-                                        for (int d=0;d<=index2.size(); d++){
+                                        for (int d=(index2.size()-1); d<=0; d--){
                                             cont.setCargaActual(cont.getCargaActual()-cont.getCarga().get(index2.get(d)).getPeso());
                                             cont.getCarga().remove(cont.getCarga().get(index2.get(d)));
                                         } 
@@ -388,13 +388,17 @@ public class Menu {
                                     }
                                 }    
                             }
+                            System.out.println(x);
                             index.add(x);
+                            System.out.println("El size de index es :"+index.size());
                         }  
                     }
-                    for (int d=0; d<=index.size(); d++){
-                        barco.getRuta().getFechaA().remove(barco.getRuta().getFechaA().get(d));
-                        barco.getRuta().getPuerto().remove(barco.getRuta().getPuerto().get(d));
+                    for (int d=(index.size()-1); d<=0; d--){
+                        System.out.println(index.get(d));
+                        barco.getRuta().getFechaA().remove(barco.getRuta().getFechaA().get(index.get(d)));
+                        barco.getRuta().getPuerto().remove(barco.getRuta().getPuerto().get(index.get(d)));
                     }
+                            
                     
                 }
             }
