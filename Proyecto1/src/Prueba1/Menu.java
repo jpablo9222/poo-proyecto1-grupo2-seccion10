@@ -337,7 +337,8 @@ public class Menu {
                                         for (int d=(index2.size()-1); d>=0; d--){
                                             cont.setCargaActual(cont.getCargaActual()-cont.getCarga().get(index2.get(d)).getPeso());
                                             cont.getCarga().remove(cont.getCarga().get(index2.get(d)));
-                                        } 
+                                        }
+                                        index2.clear();
                                     }
                                 }
                             }
@@ -411,11 +412,10 @@ public class Menu {
                         barco.getRuta().getFechaA().remove(barco.getRuta().getFechaA().get(index.get(d)));
                         barco.getRuta().getPuerto().remove(barco.getRuta().getPuerto().get(index.get(d)));
                     }
-                            
-                    
+                    index.clear();        
                 }
             }
-            System.out.println("Chilerisimo :D");
+            System.out.println("\nChilerisimo :D");
         }
         
     }
@@ -544,7 +544,7 @@ public class Menu {
     static void c5(){
         Calendar fecha1, fecha2; boolean x;
         System.out.println("\n-------------------------------------------------");
-        System.out.println("tIngrese el Intervalo de Tiempo a Revisar");
+        System.out.println("\tIngrese el Intervalo de Tiempo a Revisar");
         System.out.println("Fecha de Inicio:");
         fecha1 = ingresarFecha();
         do{
@@ -591,7 +591,7 @@ public class Menu {
     
     
     static void consultaInformacion(){
-        int op;
+        int op; String letra;
         System.out.println("\n-------------------------------------------------");
         do {
             System.out.println("\t¿Que Informacion Desea Consultar?\n");
@@ -653,8 +653,12 @@ public class Menu {
                case 7:
                    return;
         }
-        System.out.println("\nPresione Enter para Continuar");
-        teclado.nextLine(); teclado.nextLine();
+        do{
+            System.out.println("Para Continuar Ingrese C (Continuar).");
+            letra = teclado.nextLine();
+            if (!letra.equalsIgnoreCase("C"))
+                System.out.println("Lo Lamento, Ingrese C Para Continuar.");
+        }while(!letra.equalsIgnoreCase("C"));
     }
     
     public static void main(String[] args){
