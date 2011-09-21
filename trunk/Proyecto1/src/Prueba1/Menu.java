@@ -288,7 +288,7 @@ public class Menu {
                 if (!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N"))
                     System.out.println("Lo Sentimos, Esa No es Una Opcion Valida.");
             }
-            if (ruta.getPuerto().size()<2){
+            if ((ruta.getPuerto().size()<2)&&(op.equalsIgnoreCase("N"))){
                 System.out.println("Lo Sentimos, Debe Agregar Al Menos Dos Puertos A La Ruta.");
             }
         }
@@ -297,7 +297,7 @@ public class Menu {
     }
 
     static void arriboPuerto(){
-        int x; float y=0, cargaTemp;
+        int x; float y=0;
         ArrayList<Carga> temp = new ArrayList<Carga>();
         ArrayList<Integer> index = new ArrayList<Integer>();
         ArrayList<Integer> index2 = new ArrayList<Integer>();
@@ -412,7 +412,6 @@ public class Menu {
                         }  
                     }
                     for (int d=(index.size()-1); d>=0; d--){
-                        System.out.println(index.get(d));
                         barco.getRuta().getFechaA().remove(barco.getRuta().getFechaA().get(index.get(d)));
                         barco.getRuta().getPuerto().remove(barco.getRuta().getPuerto().get(index.get(d)));
                     }
@@ -474,7 +473,7 @@ public class Menu {
             System.out.println("¿Cual barco desea analizar?");
             y = ingresarInt();
             if (y<=0||y>barcosExistentes.size())
-                System.out.println("Lo sentimos, ese Puerto no Existe");          
+                System.out.println("Lo sentimos, ese Barco no Existe");          
         }
         System.out.println("\nRuta del Barco "+barcosExistentes.get(y-1).getNombre());
         for (Puerto puerto:barcosExistentes.get(y-1).getRuta().getPuerto()){
@@ -482,8 +481,9 @@ public class Menu {
             System.out.println("Puerto: "+puerto.getNombrePuerto()+", Fecha: "+date_format.format(barcosExistentes.get(y-1).getRuta().getFechaA().get(f).getTime()));
             for (Contenedor cont:barcosExistentes.get(y-1).getContenedores()){
                 for (Carga carga:cont.getCarga()){
-                    if (carga.getDestino().getNombrePuerto().equals(puerto.getNombrePuerto()))
-                        z+=1;   
+                    if (carga.getDestino().getNombrePuerto().equals(puerto.getNombrePuerto())){
+                        z+=1;
+                    }
                 }      
             }
             if (z>0){
@@ -522,7 +522,7 @@ public class Menu {
     }
     
     static void c4(){
-        Calendar fecha; int x = 0;
+        Calendar fecha; int x = 0, y;
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tIngrese la Fecha a Analizar");
         fecha = ingresarFecha();
@@ -530,7 +530,8 @@ public class Menu {
         for (Puerto puerto:puertosExistentes){
             for (Barco barco:barcosExistentes){
                 for (Calendar fecha1:barco.getRuta().getFechaA()){
-                    if (barco.getRuta().getPuerto().get(barco.getRuta().getFechaA().indexOf(fecha1)).getNombrePuerto().equals(puerto.getNombrePuerto())&&fecha1.equals(fecha)){
+                    y = barco.getRuta().getFechaA().indexOf(fecha1);
+                    if ((barco.getRuta().getPuerto().get(y).getNombrePuerto().equals(puerto.getNombrePuerto()))&&(fecha1.equals(fecha))){
                         x+=1;
                     }
                 }
@@ -546,13 +547,13 @@ public class Menu {
     }
     
     static void c5(){
-        Calendar fecha1, fecha2; boolean x;
+        Calendar fecha1, fecha2; boolean x; int y;
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tIngrese el Intervalo de Tiempo a Revisar");
         System.out.println("Fecha de Inicio:");
         fecha1 = ingresarFecha();
         do{
-            System.out.println("Fecha Final");
+            System.out.println("\nFecha Final");
             fecha2 = ingresarFecha();
             if (!fecha1.before(fecha2))
                 System.out.println("Lo sentimos, la fecha final debe ser posterior a la fecha inicial");
@@ -563,14 +564,16 @@ public class Menu {
             x = false;
             for (Barco barco:barcosExistentes){
                 for (Calendar fecha:barco.getRuta().getFechaA()){
-                    if (barco.getRuta().getPuerto().get(barco.getRuta().getFechaA().indexOf(fecha1)).getNombrePuerto().equals(puerto.getNombrePuerto())&&!fecha.before(fecha1)&&!fecha.after(fecha2)){
+                    y = barco.getRuta().getFechaA().indexOf(fecha1);
+                    if ((barco.getRuta().getPuerto().get(y).getNombrePuerto().equals(puerto.getNombrePuerto()))&&(!fecha.before(fecha1))&&(!fecha.after(fecha2))){
                         System.out.println("- Fecha: " + date_format.format(fecha.getTime()) + " - Barco: " + barco.getNombre());
                         x = true;
                     }
                 }
             }
-            if (!x)
+            if (!x){
                 System.out.println("No habra Barco Alguno.");
+            }
         }
     }
     
