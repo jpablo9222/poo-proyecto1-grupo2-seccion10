@@ -670,7 +670,9 @@ public class Menu {
         }
     }
     
-    
+   /**
+    * Metodo que Muestra el Menu de Consultas.
+    */
     static void consultaInformacion(){
         int op; String letra;
         System.out.println("\n-------------------------------------------------");
@@ -742,6 +744,9 @@ public class Menu {
         }while(!letra.equalsIgnoreCase("C"));
     }
     
+   /**
+    * Método que Muestra el Menu Principal del Programa
+    */
     public static void main(String[] args){
         int opcion=0; boolean seguro = false; String op;
         System.out.println("\tBienvenido");
