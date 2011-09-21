@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 public class Menu {
+    //Se declaran las listas en donde se guardan los objetos creados a controlar.
     static Scanner teclado = new Scanner(System.in);
     static ArrayList<Puerto> puertosExistentes = new ArrayList<Puerto>();
     static ArrayList<Barco> barcosExistentes = new ArrayList<Barco>();
@@ -16,6 +17,11 @@ public class Menu {
     static ArrayList<Ruta> rutasExistentes = new ArrayList<Ruta>();
     static SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
     
+   /**
+    * Permite y Evalua el Ingreso de un Número Entero. Muestra Error si el dato Ingresado
+    * No es un Número Entero. Devuelve el Número Entero Ingresado Correctamente.
+    * @return x Número Entero Valido.
+    */
     public static int ingresarInt() {
         Integer x = null;
         while (x == null) {
@@ -30,6 +36,11 @@ public class Menu {
         return x;
     }
 
+   /**
+    * Permite y Evalua el Ingreso de un Número Decimal. Muestra Error si el dato Ingresado
+    * No es un Número. Devuelve el Número Decimal Ingresado Correctamente.
+    * @return x Número Decimal Valido.
+    */
     public static float ingresarFloat() {
         Float x = null;
         while (x == null) {
@@ -44,6 +55,11 @@ public class Menu {
         return x;
     }
     
+   /**
+    * Método que da lugar al Ingreso de un Puerto al Programa. Se le Pregunta al Usuario
+    * Todos los Atributos del Puerto y se Validan Para Determinar que Sean Correctos.
+    * Por Ultimo se Instancia un Puerto y Se Agrega a La Lista de Puertos del Programa.
+    */    
     static void IngresarPuerto(){
         String nombre, pais, coordenadas; boolean x;
         System.out.println("\n-------------------------------------------------");
@@ -80,6 +96,11 @@ public class Menu {
         System.out.println("Puerto Ingresado Exitosamente.");
     }
     
+   /**
+    * Método que da lugar al Ingreso de un Barco al Programa. Se le Pregunta al Usuario
+    * Todos los Atributos del Barco y se Validan Para Determinar que Sean Correctos.
+    * Por Ultimo se Instancia un Barco y Se Agrega a La Lista de Barcos del Programa.
+    */
     static void IngresarBarco(){
         String naviera, pnaviera, nombre, capitan;
         float capacidadMaxima;
@@ -125,6 +146,12 @@ public class Menu {
         return -1;
     }
     
+   /**
+    * Método que da lugar a la Programacion de Envio de una Carga. Se le Pregunta al Usuario
+    * Todos los Atributos de la Carga y se Validan Para Determinar que Sean Correctos.
+    * Por Ultimo se Instancia la Carga y Se Agrega a La Lista de Cargas del Programa.
+    * Además se Agrega a la Lista de Cargas Programadas del Barco al cual se Encargo.
+    */
     static void IngresarCarga(){
         int codCarga, i=0, y=0, ind, ind1 = 0, ind2 = 0; String dueño, descripcion, puerto;
         float peso, pesoEstimado; boolean b1, b2,x;
@@ -222,7 +249,14 @@ public class Menu {
             }
         }
     }
-       
+    
+   /**
+    * Método que da lugar al Ingreso de una Ruta de un Barco. Se le Pregunta al Usuario
+    * Todos los Atributos de la Ruta y se Validan Para Determinar que Sean Correctos.
+    * Se Instancia la Ruta y se Pregunta El Itinerario de Visitas a los Puertos Previamente
+    * Creados. Por Ultimo se Devuelve La Ruta Creada.
+    * @return ruta Ruta Creada.
+    */
     static Ruta IngresarRuta(){
         Ruta ruta; Calendar fecha; boolean x, bandera;
         String op = "s"; int y=0, codigo; 
@@ -296,6 +330,14 @@ public class Menu {
         return ruta;
     }
 
+   /**
+    * Método que Simula El Recorrido de las Rutas Creadas, Hasta Llegar a Una Fecha
+    * Establecida Por el Usuario. Al Simular las Rutas se Realizan Los Procesos de 
+    * Carga y Descarga de Todos Los Envios de Cargas Previamente Programados. Esto Da
+    * Lugar También a la Consolidacion de la Carga de Los Contenedores de Cada Barco
+    * Con Una Carga Asignada. Este Ultimo Proceso Se Realiza al Momento de Realizar un
+    * Cargue o Descargue.
+    */
     static void arriboPuerto(){
         int x; float y=0;
         ArrayList<Carga> temp = new ArrayList<Carga>();
@@ -423,6 +465,9 @@ public class Menu {
         
     }
     
+   /**
+    * Método que imprime la Lista de Puertos Existentes, Previamente Agregados.
+    */
     static void listaPuertos(){
         int i = 0;
         for (Puerto x:puertosExistentes){
@@ -431,12 +476,20 @@ public class Menu {
         }
     }
     
+   /**
+    * Método que Responde a la Primer Consulta. Imprimer la Lista de Puertos Registrados
+    * Por El Usuario Previamente.
+    */
     static void c1(){
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tPuertos Registrados: ");
         listaPuertos();
     }
     
+   /**
+    * Método que Responde a la Segunda Consulta. Muestra la Cantidad de Contenedores Ya
+    * Cargados en un Barco, Cuyo Destino es un Puerto Específico. 
+    */
     static void c2(){
         int y = 0,x = 0;
         System.out.println("\n-------------------------------------------------");
@@ -461,6 +514,10 @@ public class Menu {
         }
     }
     
+   /**
+    * Método que Responde a la Tercera Consulta. Muestra La Ruta que Seguirá un Barco,
+    * Indicado los Puertos y Contenedores que Actualmente hay que Desembarcar en cada uno de esos Puertos.
+    */
     static void c3(){
         int i = 0, y = 0, z=0, f=0;
         System.out.println("\n-------------------------------------------------");
@@ -495,6 +552,11 @@ public class Menu {
         }
     }
     
+   /**
+    * Método que Permite y Valida el Ingreso de Una Fecha. Luego Instancia Dicha
+    * Fecha y la Devuelve.
+    * @return fecha Fecha Creada y Validada.
+    */
     static Calendar ingresarFecha(){
         int dia, mes, año;
         Calendar fecha;
@@ -521,6 +583,10 @@ public class Menu {
         return fecha;
     }
     
+   /**
+    * Método que Responde a la Cuarta Consulta. Muestra Cantidad de Barcos que Hay 
+    * En un Puerto en un Momento Dado.
+    */
     static void c4(){
         Calendar fecha; int x = 0, y;
         System.out.println("\n-------------------------------------------------");
@@ -546,6 +612,10 @@ public class Menu {
         }
     }
     
+   /**
+    * Método que Responde a la Quinta Consulta. Muestra La Programación de 
+    * Arribos de Barcos a un Puerto en un Periodo de Tiempo Dado.
+    */
     static void c5(){
         Calendar fecha1, fecha2; boolean x; int y;
         System.out.println("\n-------------------------------------------------");
@@ -577,6 +647,10 @@ public class Menu {
         }
     }
     
+   /**
+    * Método que Responde a la Sexta Consulta. Muestra Las Personas o Empresas a 
+    * Quienes se Les Envía Carga en un Puerto Específico.
+    */
     static void c6(){
         int y = 0;
         System.out.println("\n-------------------------------------------------");
