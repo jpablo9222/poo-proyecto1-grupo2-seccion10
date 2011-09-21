@@ -6,16 +6,19 @@ package Prueba1;
  */
 public class Puerto {
     private String nombre, pais, EO,NS;
-    private Double coordenadaNS, coordenadaEO;
+    private float coordenadaNS, coordenadaEO;
     
    /**
     * Método Constructor.   
     * Crea un Puertoo con la información proporcionada.
     * @param name Nombre del Puerto.
     * @param country Pais de Donde se Ubica el Puerto.
-    * @param coor Coordenadas de Ubicación del Puerto.
+    * @param coorNS Coordenadas en la Latitud.
+    * @param coorEO Coordenada en la Longitud.
+    * @param EOs Orientación en la Longitud.
+    * @param NSs Orientación en la Latitud.
     */
-    public Puerto(String name, String country, Double coorNS, Double coorEO, String EOs, String NSs)
+    public Puerto(String name, String country, float coorNS, float coorEO, String EOs, String NSs)
     {
         nombre = name; pais = country; coordenadaNS=coorNS; coordenadaEO=coorEO;EO=EOs; NS=NSs; 
     }
@@ -54,8 +57,8 @@ public class Puerto {
     */
     public void copy(Puerto puertito)
     {
-        String coordenada;
         nombre = puertito.nombre; pais = puertito.pais; 
-        coordenada = puertito.getCoordenadaPuerto();
+        coordenadaNS = puertito.coordenadaNS; NS = puertito.NS;
+        coordenadaEO = puertito.coordenadaEO; EO = puertito.EO;
     }
 }
