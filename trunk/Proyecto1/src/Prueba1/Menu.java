@@ -82,7 +82,7 @@ public class Menu {
         do{
             System.out.println("Coordenadas del Puerto: ");
             coorNS = teclado.next();
-            coorEO=teclado.next();
+            coorEO = teclado.next();
             try{
                 coordenadaNS = Double.parseDouble(coorNS);
                 coordenadaNS=Math.abs(coordenadaNS);
@@ -90,7 +90,6 @@ public class Menu {
             catch(Exception e){
                  System.out.println("La coordenada de latitud no fue agregada ya que el dato ingresado no es numero..."+
                                 "Intente de nuevo...");
-            
            }
             try{
                 coordenadaEO=Double.parseDouble(coorEO);
