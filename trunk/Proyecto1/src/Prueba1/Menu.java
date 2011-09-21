@@ -61,8 +61,9 @@ public class Menu {
     * Por Ultimo se Instancia un Puerto y Se Agrega a La Lista de Puertos del Programa.
     */    
     static void IngresarPuerto(){
-        String nombre, pais, coorNS, coorEO, EO,NS; boolean x; 
-        double coordenadaNS=0,coordenadaEO=0;
+        String nombre, pais, EO,NS; 
+        boolean x; 
+        float coorNS = 0, coorEO = 0;
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tIngreso de Puertos");
         do{
@@ -81,41 +82,24 @@ public class Menu {
         pais = teclado.nextLine();
         do{
             System.out.println("Coordenadas del Puerto: ");
-            coorNS = teclado.next();
-            coorEO = teclado.next();
-            try{
-                coordenadaNS = Double.parseDouble(coorNS);
-                coordenadaNS=Math.abs(coordenadaNS);
-            }
-            catch(Exception e){
-                 System.out.println("La coordenada de latitud no fue agregada ya que el dato ingresado no es numero..."+
-                                "Intente de nuevo...");
-           }
-            try{
-                coordenadaEO=Double.parseDouble(coorEO);
-                coordenadaEO=Math.abs(coordenadaEO);
-            }
-            catch(Exception e){
-                System.out.println("La coordenada de longitud no fue agregada ya que el dato ingresado no es numero..."+
-                                "Intente de nuevo...");
-            }
-            if (coordenadaNS<0){
+            coorNS = ingresarFloat();
+            coorEO = ingresarFloat();
+                        
+            if (coorNS<0){
                 NS="S";
-            }
-            else if (coordenadaNS >0){
+            }else if (coorNS >0){
                 NS="N";
-            }
-            else{ NS="";}
-            if (coordenadaEO<0){
+            }else{ NS="";}
+            
+            if (coorEO<0){
                 EO="O";
-            }
-            else if (coordenadaEO>0){
+            }else if (coorEO>0){
                 EO="E";
-            }
-            else{ EO="";}
+            }else{ EO="";}
+            
             x = false;
             for(Puerto puertito:puertosExistentes){
-                if(puertito.getCoordenadaPuerto().equalsIgnoreCase("Latitud: "+ coordenadaNS+NS + "\t Longitud: "+coordenadaEO+EO)){
+                if(puertito.getCoordenadaPuerto().equalsIgnoreCase("Latitud: "+ coorNS+NS + "\t Longitud: "+coorEO+EO)){
                     System.out.println("Lo Sentimos, Ya Existe Un Puerto Con Esas Coordenadas.");
                     System.out.println("Ingrese Otras Coordenadas De Nuevo.");
                     x = true;
@@ -123,7 +107,7 @@ public class Menu {
             }
         }while(x);
         
-        Puerto puerto = new Puerto (nombre, pais, coordenadaNS,coordenadaEO,EO,NS);
+        Puerto puerto = new Puerto (nombre, pais, coorNS, coorEO,EO,NS);
         puertosExistentes.add(puerto);
         System.out.println("Puerto Ingresado Exitosamente.");
     }
@@ -187,8 +171,8 @@ public class Menu {
     static void IngresarCarga(){
         int codCarga, i=0, y=0, ind, ind1 = 0, ind2 = 0; String dueño, descripcion, puerto;
         float peso, pesoEstimado; boolean b1, b2,x;
-        Puerto origen = new Puerto("","",0.0,0.0,"","");
-        Puerto destino = new Puerto("","",0.0,0.0,"","");
+        Puerto origen = new Puerto("","",0.0f,0.0f,"","");
+        Puerto destino = new Puerto("","",0.0f,0.0f,"","");
         ArrayList<Integer> temp = new ArrayList<Integer>();
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tIngreso de Carga\n");
