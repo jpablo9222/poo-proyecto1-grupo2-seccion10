@@ -355,7 +355,8 @@ public class Menu {
     * Cargue o Descargue.
     */
     static void arriboPuerto(){
-        int x; float y=0;
+        int x; float y=0; String letra;
+        boolean encontrado = false;
         ArrayList<Carga> temp = new ArrayList<Carga>();
         ArrayList<Integer> index = new ArrayList<Integer>();
         ArrayList<Integer> index2 = new ArrayList<Integer>();
@@ -365,9 +366,23 @@ public class Menu {
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tArribo a un Puerto");
         for (int w=0; w<barcosExistentes.size(); w++){
-            if (barcosExistentes.get(w).getRuta().getFechaA().get(0).before(fechaMenor)){
-                fechaMenor = barcosExistentes.get(w).getRuta().getFechaA().get(0);
+            if (!barcosExistentes.get(w).getRuta().getFechaA().isEmpty()){
+                if (barcosExistentes.get(w).getRuta().getFechaA().get(0).before(fechaMenor)){
+                    fechaMenor = barcosExistentes.get(w).getRuta().getFechaA().get(0);
+                }
+                encontrado = true;
             }
+        }
+        
+        if (!encontrado){
+            System.out.println("Todos los Barcos Han Llegado a su Destino Previamente");
+            do{
+                System.out.println("Para Continuar Ingrese C (Continuar).");
+                letra = teclado.nextLine();
+                if (!letra.equalsIgnoreCase("C"))
+                    System.out.println("Lo Lamento, Ingrese C Para Continuar.");
+            }while(!letra.equalsIgnoreCase("C"));
+            return;
         }
         System.out.println("\nEn esta sección se Calculan todos los Cargues y Descargues automáticamente");
         System.out.println("\nIngrese la Fecha Actual: ");
@@ -770,7 +785,7 @@ public class Menu {
            do{
                System.out.println("\n-------------------------------------------------");
                System.out.println("\tMenu\n");
-               System.out.println("1. Agregar un Puerto");
+               System.out.println("1. Agregar un Puerto"); 
                System.out.println("2. Agregar un Barco");
                System.out.println("3. Programar envio de Carga");
                System.out.println("4. Arribar a un Puerto");
