@@ -168,6 +168,26 @@ public class Menu {
         return -1;
     }
     
+    static float estimarPeso(Barco barco, Puerto o){ 
+        float x = 0; int y = 0, z = 0;
+        for (Puerto puertito:barco.getRuta().getPuerto()){
+            if (puertito.getNombrePuerto().equals(o.getNombrePuerto()))
+                y = barco.getRuta().getPuerto().indexOf(puertito);
+            }
+        
+        for (Carga producto:barco.getCargaProg()){
+            for (Puerto puertito:barco.getRuta().getPuerto()){
+                if (producto.getDestino().getNombrePuerto().equals(puertito.getNombrePuerto()))
+                    z = barco.getRuta().getPuerto().indexOf(puertito);
+            }
+            x+=producto.getPeso();
+            if (barco.getRuta().getFechaA().get(z).before(barco.getRuta().getFechaA().get(y))){
+                x-=producto.getPeso();
+            }
+        }
+        return x;
+    }
+
    /**
     * Método que da lugar a la Programacion de Envio de una Carga. Se le Pregunta al Usuario
     * Todos los Atributos de la Carga y se Validan Para Determinar que Sean Correctos.
@@ -235,10 +255,10 @@ public class Menu {
         for (Integer b:temp){
             i+=1;
             pesoEstimado=0;
-            for (Carga producto:barcosExistentes.get(b).getCargaProg()){
-                   pesoEstimado+=producto.getPeso();
-            } 
-            System.out.println(i+".) " + barcosExistentes.get(b).getNombre() + ", Espacio Disponible: " + (barcosExistentes.get(b).getCapacidad()-pesoEstimado) + "\n");
+            //for (Carga producto:barcosExistentes.get(b).getCargaProg()){
+            //       pesoEstimado+=producto.getPeso();
+            //} 
+            System.out.println(i+".) " + barcosExistentes.get(b).getNombre() + ", Espacio Disponible: " + (barcosExistentes.get(b).getCapacidad()-estimarPeso(barcosExistentes.get(b),origen)) + "\n");
         }
         while (y<=0||y>temp.size()){
             System.out.println("Seleccione el Barco que mejor le Parezca: ");
@@ -247,15 +267,15 @@ public class Menu {
                 System.out.println("Esa no es una opcion valida.");
         }
         pesoEstimado=0;
-        for (Carga producto:barcosExistentes.get(temp.get(y-1)).getCargaProg()){
-            pesoEstimado+=producto.getPeso();
-        }
+        //for (Carga producto:barcosExistentes.get(temp.get(y-1)).getCargaProg()){
+          //  pesoEstimado+=producto.getPeso();
+        //}
         do{
             System.out.println("Peso de la Carga: ");
             peso = ingresarFloat(); 
-            if (peso>barcosExistentes.get(temp.get(y-1)).getCapacidad()-pesoEstimado)
+            if (peso>barcosExistentes.get(temp.get(y-1)).getCapacidad()-estimarPeso(barcosExistentes.get(temp.get(y-1)),origen))
                 System.out.println("Lo siento, el barco no puede soportar tanta carga");
-        } while (peso>(barcosExistentes.get(temp.get(y-1)).getCapacidad()-pesoEstimado));
+        } while (peso>(barcosExistentes.get(temp.get(y-1)).getCapacidad()-estimarPeso(barcosExistentes.get(temp.get(y-1)),origen)));
         
         Carga carga = new Carga(codCarga, dueño, descripcion, peso, origen, destino);
         for (Barco barco1:barcosExistentes){
