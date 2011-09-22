@@ -7,7 +7,7 @@ package Prueba1;
 import java.io.Serializable;
 public class Carga implements Serializable{
     private int codCarga;
-    private String dueño, descripcion;
+    private String duenio, descripcion;
     private float peso;
     private Puerto origen, destino;
     
@@ -23,7 +23,7 @@ public class Carga implements Serializable{
     */
     public Carga(int cod, String owner, String des, float weight, Puerto o, Puerto d)
     {
-        codCarga = cod; dueño = owner; descripcion = des; origen = o; destino = d; peso = weight;
+        codCarga = cod; duenio = owner; descripcion = des; origen = o; destino = d; peso = weight;
     }
     
    /**
@@ -37,11 +37,11 @@ public class Carga implements Serializable{
     
    /**
     * Método que Devuelve la Empresa Dueña de la Carga.
-    * @return dueño Empresa Dueña de la Carga.
+    * @return duenio Empresa Dueña de la Carga.
     */
-    public String getDueño()
+    public String getDuenio()
     {
-        return dueño;
+        return duenio;
     }
     
    /**

@@ -199,8 +199,8 @@ public class Menu {
     * Además se Agrega a la Lista de Cargas Programadas del Barco al cual se Encargo.
     */
     static void IngresarCarga(){
-        int codCarga, i=0, y=0, ind, ind1 = 0, ind2 = 0; String dueño, descripcion, puerto;
-        float peso, pesoEstimado; boolean b1, b2,x;
+        int codCarga, i=0, y=0, ind, ind1 = 0, ind2 = 0; String duenio, descripcion, puerto;
+        float peso; boolean b1, b2,x;
         Puerto origen = new Puerto("","",0.0f,0.0f,"","");
         Puerto destino = new Puerto("","",0.0f,0.0f,"","");
         ArrayList<Integer> temp = new ArrayList<Integer>();
@@ -220,7 +220,7 @@ public class Menu {
             }
         }while(x);
         System.out.println("Dueño de la Carga: ");
-        dueño = teclado.nextLine();
+        duenio = teclado.nextLine();
         System.out.println("Descripcion de la Carga: ");
         descripcion = teclado.nextLine();
         int numero;
@@ -261,10 +261,6 @@ public class Menu {
         System.out.println("\nBarcos Recomendados:");
         for (Integer b:temp){
             i+=1;
-            pesoEstimado=0;
-            //for (Carga producto:barcosExistentes.get(b).getCargaProg()){
-            //       pesoEstimado+=producto.getPeso();
-            //} 
             System.out.println(i+".) " + barcosExistentes.get(b).getNombre() + ", Espacio Disponible: " + (barcosExistentes.get(b).getCapacidad()-estimarPeso(barcosExistentes.get(b),origen)) + "\n");
         }
         while (y<=0||y>temp.size()){
@@ -273,12 +269,6 @@ public class Menu {
             if (y<=0||y>temp.size())
                 System.out.println("Esa no es una opcion valida.");
         }
-        pesoEstimado=0;
-        //for (Carga producto:barcosExistentes.get(temp.get(y-1)).getCargaProg()){
-          //  pesoEstimado+=producto.getPeso();
-        //}
-        // se determina la cantidad de peso que se puede ingresar, y si se desea ingresar mas de lo posible
-        // se muestra error.
         do{
             System.out.println("Peso de la Carga: ");
             peso = ingresarFloat(); 
@@ -286,7 +276,7 @@ public class Menu {
                 System.out.println("Lo siento, el barco no puede soportar tanta carga");
         } while (peso>(barcosExistentes.get(temp.get(y-1)).getCapacidad()-estimarPeso(barcosExistentes.get(temp.get(y-1)),origen)));
         
-        Carga carga = new Carga(codCarga, dueño, descripcion, peso, origen, destino);
+        Carga carga = new Carga(codCarga, duenio, descripcion, peso, origen, destino);
         for (Barco barco1:barcosExistentes){
             if (barco1.getNombre().equals(barcosExistentes.get(temp.get(y-1)).getNombre())){
                 barco1.getCargaProg().add(carga);
@@ -438,7 +428,7 @@ public class Menu {
                                 if (carga.getDestino().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
                                     System.out.println("Descargue:");
                                     System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
-                                    System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
+                                    System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDuenio() + ".");
                                     // Se Eliminan Las Cargas Descargas
                                     for (Contenedor cont:barco.getContenedores()){
                                         for(Carga charge:cont.getCarga()){
@@ -475,7 +465,7 @@ public class Menu {
                             for (Carga charge:temp){
                                 y = (barco.getContenedores().get(f).getCapacidad()-barco.getContenedores().get(f).getCargaActual());
                                 if (charge.getPeso()>y){
-                                    Carga carga1 = new Carga (charge.getCodCarga(), charge.getDueño(), charge.getDescripcion(), (charge.getPeso()-y), charge.getOrigen(), charge.getDestino());
+                                    Carga carga1 = new Carga (charge.getCodCarga(), charge.getDuenio(), charge.getDescripcion(), (charge.getPeso()-y), charge.getOrigen(), charge.getDestino());
                                     charge.setPeso(y);
                                     barco.getContenedores().get(f).getCarga().add(charge);
                                     barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCapacidad());
@@ -493,7 +483,7 @@ public class Menu {
                                 if (carga.getOrigen().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
                                     System.out.println("Cargue:");
                                     System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
-                                    System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
+                                    System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDuenio() + ".");
                                 
                                     if (barco.getContenedores().isEmpty()){
                                         Contenedor cont1 = new Contenedor (barco.getCapacidad()/barco.getCapContendores());
@@ -501,8 +491,8 @@ public class Menu {
                                     }
                                     y = ((barco.getContenedores().get(f).getCapacidad())-(barco.getContenedores().get(f).getCargaActual()));
                                     if (carga.getPeso()>y){
-                                        Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
-                                        Carga carga2 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), y, carga.getOrigen(), carga.getDestino());
+                                        Carga carga1 = new Carga (carga.getCodCarga(), carga.getDuenio(), carga.getDescripcion(), (carga.getPeso()-y), carga.getOrigen(), carga.getDestino());
+                                        Carga carga2 = new Carga (carga.getCodCarga(), carga.getDuenio(), carga.getDescripcion(), y, carga.getOrigen(), carga.getDestino());
                                         barco.getContenedores().get(f).getCarga().add(carga2);
                                         barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCapacidad());
                                         if ((barco.getContenedores().size()-1)==f){
@@ -513,7 +503,7 @@ public class Menu {
                                         barco.getContenedores().get(f).getCarga().add(carga1);
                                         barco.getContenedores().get(f).setCargaActual(carga1.getPeso());
                                     } else {
-                                        Carga carga1 = new Carga (carga.getCodCarga(), carga.getDueño(), carga.getDescripcion(), carga.getPeso(), carga.getOrigen(), carga.getDestino());
+                                        Carga carga1 = new Carga (carga.getCodCarga(), carga.getDuenio(), carga.getDescripcion(), carga.getPeso(), carga.getOrigen(), carga.getDestino());
                                         barco.getContenedores().get(f).getCarga().add(carga1);
                                         barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+carga.getPeso());
                                     }
@@ -635,7 +625,7 @@ public class Menu {
     * @return fecha Fecha Creada y Validada.
     */
     static Calendar ingresarFecha(){
-        int dia, mes, año;
+        int dia, mes, anio;
         Calendar fecha;
         do{
             System.out.println("Dia: ");
@@ -651,12 +641,12 @@ public class Menu {
         }while(mes<1||mes>12);
         do{
             System.out.println("Año: ");
-            año = ingresarInt();
-            if (año<2010)
+            anio = ingresarInt();
+            if (anio<2010)
                 System.out.println("Debe Ingresar un Año Mayor a 2010.");
-        }while(año<2010);
+        }while(anio<2010);
         fecha = Calendar.getInstance();
-        fecha.set(año, (mes-1), dia, 0, 0, 0);
+        fecha.set(anio, (mes-1), dia, 0, 0, 0);
         return fecha;
     }
     
@@ -742,7 +732,7 @@ public class Menu {
         System.out.println("\nDestinatarios del Puerto " + puertosExistentes.get(y-1).getNombrePuerto());
         for (Carga carga:cargasExistentes){
             if (carga.getDestino().getNombrePuerto().equals(puertosExistentes.get(y-1).getNombrePuerto())){
-                System.out.println(carga.getDueño());
+                System.out.println(carga.getDuenio());
             }
         }
     }
@@ -822,9 +812,11 @@ public class Menu {
     }
     
    /**
-    * Método que Muestra el Menu Principal del Programa
+    * Método que Muestra el Menu Principal del Programa.
+    * En este método se lleva a cabo el programa en sí.
     */
     public static void main(String[] args){
+        // Se verifica la persistencia de información.
         try {
              FileInputStream SP = new FileInputStream("SP-G2.dat");
              ObjectInputStream is = new ObjectInputStream(SP);
@@ -896,6 +888,7 @@ public class Menu {
                    break;
            }
         }
+        // Se Realiza la Persistencia de Información.
         try {
              FileOutputStream sp = new FileOutputStream("SP-G2.dat");
              ObjectOutputStream os = new ObjectOutputStream(sp);
