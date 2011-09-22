@@ -690,7 +690,7 @@ public class Menu {
             x = false;
             for (Barco barco:barcosExistentes){
                 for (Calendar fecha:barco.getRuta().getFechaA()){
-                    y = barco.getRuta().getFechaA().indexOf(fecha1);
+                    y = barco.getRuta().getFechaA().indexOf(fecha);
                     if ((barco.getRuta().getPuerto().get(y).getNombrePuerto().equals(puerto.getNombrePuerto()))&&(!fecha.before(fecha1))&&(!fecha.after(fecha2))){
                         System.out.println("- Fecha: " + date_format.format(fecha.getTime()) + " - Barco: " + barco.getNombre());
                         x = true;
