@@ -294,7 +294,7 @@ public class Menu {
     */
     static Ruta IngresarRuta(){
         Ruta ruta; Calendar fecha; boolean x, bandera;
-        String op = "s"; int y=0, codigo; 
+        String op = "s", letra; int y=0, codigo; 
         
         System.out.println("\n\tIngreso de Ruta");
         // se repite el ingreso de codigo de ruta hasta que el codigo de ruta que se agregue sea nueva
@@ -354,6 +354,12 @@ public class Menu {
                 System.out.println("Se Han Ingresado Todos Los Puertos Posibles a La Ruta.");
                 System.out.println("Ya No Se Podra Seguir Agregando Mas Puertos.");
                 op = "N";
+                do{
+                    System.out.println("Para Continuar Ingrese C (Continuar).");
+                    letra = teclado.nextLine();
+                if (!letra.equalsIgnoreCase("C"))
+                    System.out.println("Lo Lamento, Ingrese C Para Continuar.");
+                }while(!letra.equalsIgnoreCase("C"));
             }
             while(!op.equalsIgnoreCase("S") && !op.equalsIgnoreCase("N") ){
                 System.out.println("\n¿Desea Agregar un Puerto a la Ruta? S/N");
