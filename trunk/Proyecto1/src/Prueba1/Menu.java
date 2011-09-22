@@ -222,12 +222,12 @@ public class Menu {
         System.out.println("Nombre del Puerto de Origen: ");
         listaPuertos();
         numero = ingresarInt();
-        destino.copy(puertosExistentes.get(numero));
+        destino.copy(puertosExistentes.get(numero-1));
         
         System.out.println("Nombre del Puerto de Destino: ");
         listaPuertos();
         numero = ingresarInt();
-        destino.copy(puertosExistentes.get(numero));
+        destino.copy(puertosExistentes.get(numero-1));
         
         for (Barco barco:barcosExistentes){
             b1 = false; b2 = false;
