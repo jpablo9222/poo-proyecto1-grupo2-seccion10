@@ -635,7 +635,7 @@ public class Menu {
                 System.out.println("Debe Ingresar un Año Mayor a 2010.");
         }while(año<2010);
         fecha = Calendar.getInstance();
-        fecha.set(año, mes, dia, 0, 0, 0);
+        fecha.set(año, (mes-1), dia, 0, 0, 0);
         return fecha;
     }
     
