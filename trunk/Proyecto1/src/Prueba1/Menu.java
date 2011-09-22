@@ -836,7 +836,7 @@ public class Menu {
         }
         int opcion=0; boolean seguro = false; String op;
         System.out.println("\tBienvenido");
-        while (opcion!=6 && !seguro){
+        while (!seguro){
            do{
                System.out.println("\n-------------------------------------------------");
                System.out.println("\tMenu\n");
