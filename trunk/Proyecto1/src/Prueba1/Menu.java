@@ -130,6 +130,8 @@ public class Menu {
         Ruta ruta; boolean x;
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tIngreso de Barcos\n");
+        // se busca entre la lista de barcos que el nombre ingresado no exista y esto controla la
+        // repeticion. una vez el puerto que se ingresa es nuevo, se termina.
         do{
             System.out.println("Nombre del Barco: ");
             nombre = teclado.nextLine();
@@ -153,12 +155,14 @@ public class Menu {
         System.out.println("Capacidad Maxima de Contenedores en el Barco: ");
         capacidadCont = ingresarInt();
         ruta = IngresarRuta();
+        // Se instancia el barco con la informacion ingresada anteriormente
         Barco barco = new Barco(nombre, naviera, pnaviera, capacidadMaxima,
                                 capacidadCont, ruta, capitan);
         barcosExistentes.add(barco);
         System.out.println("Barco Agregado Existosamente.");
     }
-    
+    // Busca un puerto en la lista de puertos y retorna el indice en el que esta el puerto
+    // si el puerto no esta se retorna un -1
     static int comparaPuerto(String puerto){
         for (Puerto x:puertosExistentes){
             if (puerto.equals(x.getNombrePuerto())){
@@ -167,7 +171,7 @@ public class Menu {
         }
         return -1;
     }
-    
+    // Hace una estimacion de la carga que tiene un barco en determinado puerto 
     static float estimarPeso(Barco barco, Puerto o){ 
         float x = 0; int y = 0, z = 0;
         for (Puerto puertito:barco.getRuta().getPuerto()){
@@ -202,6 +206,7 @@ public class Menu {
         ArrayList<Integer> temp = new ArrayList<Integer>();
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tIngreso de Carga\n");
+        // Se determina si el codigo de carga exite o no, y si no se repite el ingreso
         do{
             System.out.println("Codigo de la Carga: ");
             codCarga = ingresarInt();
@@ -219,6 +224,8 @@ public class Menu {
         System.out.println("Descripcion de la Carga: ");
         descripcion = teclado.nextLine();
         int numero;
+        // se imprime la lista de puertos para que el usuario escoja a que puerto, de los existentes,
+        // se desea mandar la carga
         System.out.println("Nombre del Puerto de Origen: ");
         listaPuertos();
         numero = ingresarInt();
@@ -228,7 +235,7 @@ public class Menu {
         listaPuertos();
         numero = ingresarInt();
         destino.copy(puertosExistentes.get(numero-1));
-        
+        // se busca que barcos son los que contienen esta ruta
         for (Barco barco:barcosExistentes){
             b1 = false; b2 = false;
             for (Puerto puertito:barco.getRuta().getPuerto()){
@@ -270,6 +277,8 @@ public class Menu {
         //for (Carga producto:barcosExistentes.get(temp.get(y-1)).getCargaProg()){
           //  pesoEstimado+=producto.getPeso();
         //}
+        // se determina la cantidad de peso que se puede ingresar, y si se desea ingresar mas de lo posible
+        // se muestra error.
         do{
             System.out.println("Peso de la Carga: ");
             peso = ingresarFloat(); 
@@ -298,6 +307,7 @@ public class Menu {
         String op = "s"; int y=0, codigo; 
         
         System.out.println("\n\tIngreso de Ruta");
+        // se repite el ingreso de codigo de ruta hasta que el codigo de ruta que se agregue sea nueva
         do{
             System.out.println("Codigo de la Ruta: ");
             codigo = ingresarInt();
@@ -313,6 +323,8 @@ public class Menu {
         ruta = new Ruta(codigo);
         System.out.println("\nAhora Debe Ingresar Los Puertos a Visitar");
         System.out.println("Le Recordamos que Debe Visitar Al Menos Dos Puertos\n");
+        // Se repite el ingreso de puertos hasta que el usuario diga que ya no quiere mas puertos, o que se hayan agregado
+        // todos los puertos existentes
         while ((op.equalsIgnoreCase("S")||(ruta.getPuerto().size()<2))&&(ruta.getPuerto().size()<puertosExistentes.size())){
             op = "S";
             if (op.equalsIgnoreCase("S")){
@@ -332,6 +344,7 @@ public class Menu {
                         }
                     }
                 }
+                // Se piden las fechas de arribo a cada uno de los puertos
                 ruta.getPuerto().add(puertosExistentes.get(y-1));
                 System.out.println("\nFecha Estimada de Arribo:");
                 if (ruta.getFechaA().isEmpty()){
@@ -595,10 +608,12 @@ public class Menu {
                 System.out.println("Lo sentimos, ese Barco no Existe");          
         }
         System.out.println("\nRuta del Barco "+barcosExistentes.get(y-1).getNombre());
+        // se imprimen todos los puertos que el barco va a visitar y en que fechas va a llegar
         for (Puerto puerto:barcosExistentes.get(y-1).getRuta().getPuerto()){
             f = barcosExistentes.get(y-1).getRuta().getPuerto().indexOf(puerto);
             System.out.println("Puerto: "+puerto.getNombrePuerto()+", Fecha: "+date_format.format(barcosExistentes.get(y-1).getRuta().getFechaA().get(f).getTime()));
             for (Contenedor cont:barcosExistentes.get(y-1).getContenedores()){
+                // se lleva un contador de cuantos contenedores lleva el barco aun
                 for (Carga carga:cont.getCarga()){
                     if (carga.getDestino().getNombrePuerto().equals(puerto.getNombrePuerto())){
                         z+=1;
