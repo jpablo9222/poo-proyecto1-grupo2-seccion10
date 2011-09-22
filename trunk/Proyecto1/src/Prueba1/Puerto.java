@@ -43,8 +43,8 @@ public class Puerto implements Serializable{
     }
     
    /**
-    * MÃ©todo que Devuelve la Coordenada de UbicaciÃ³n del Puerto.
-    * @return coordenada Coordenada de UbicaciÃ³n del Puerto.
+    * Método que Devuelve la Coordenada de Ubicación del Puerto.
+    * @return coordenada Coordenada de Ubicación del Puerto.
     */
     public String getCoordenadaPuerto()
     {
@@ -53,7 +53,7 @@ public class Puerto implements Serializable{
     }
     
    /**
-    * MÃ©todo que Copia la InformaciÃ³n de Otro Puerto.
+    * Método que Copia la Información de Otro Puerto.
     * @param puertito Puerto a Copiar.
     */
     public void copy(Puerto puertito)
@@ -62,9 +62,14 @@ public class Puerto implements Serializable{
         coordenadaNS = puertito.coordenadaNS; NS = puertito.NS;
         coordenadaEO = puertito.coordenadaEO; EO = puertito.EO;
     }
+  
     @Override
+   /**
+    * Método que Devuelve el Pais Donde se Ubica el Puerto.
+    * @return pais Pais Donde se Ubica el Puerto.
+    */
     public String toString(){
-        String info=nombre+ " se ubica en el pais: "+pais+" con las coordenadas: "+coordenadaNS+NS+ " y "+ coordenadaEO+EO;
+        String info= "El Puerto "+nombre+ " se Ubica en el Pais: "+pais+" con las coordenadas: "+coordenadaNS+NS+ " y "+ coordenadaEO+EO;
         return info;
     }
 }
