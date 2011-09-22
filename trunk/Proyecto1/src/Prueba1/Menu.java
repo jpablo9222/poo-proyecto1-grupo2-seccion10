@@ -229,7 +229,7 @@ public class Menu {
         System.out.println("Nombre del Puerto de Origen: ");
         listaPuertos();
         numero = ingresarInt();
-        destino.copy(puertosExistentes.get(numero-1));
+        origen.copy(puertosExistentes.get(numero-1));
         
         System.out.println("Nombre del Puerto de Destino: ");
         listaPuertos();
