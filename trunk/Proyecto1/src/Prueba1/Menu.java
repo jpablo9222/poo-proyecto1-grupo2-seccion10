@@ -74,6 +74,7 @@ public class Menu {
             System.out.println("\nNombre del Puerto: ");
             nombre = teclado.nextLine();
             x = false;
+            // Se compara el nombre ingresado con los nombres existentes para buscar que no hayan duplicados
             for(Puerto puertito:puertosExistentes){
                 if(puertito.getNombrePuerto().equalsIgnoreCase(nombre)){
                     System.out.println("Lo Sentimos, Ya Existe Un Puerto Con Ese Nombre.");
@@ -84,10 +85,11 @@ public class Menu {
         }while(x);
         System.out.println("Pais del Puerto: ");
         pais = teclado.nextLine();
+        // De la misma manera se busca que no hayan coordenadas duplicadas en el ingreso
         do{
             System.out.println("Coordenadas del Puerto: ");
-            coorNS = ingresarFloat();
-            coorEO = ingresarFloat();
+            System.out.println("Latitud: "); coorNS = ingresarFloat();
+            System.out.println("Longitud: "); coorEO = ingresarFloat();
                         
             if (coorNS<0){
                 NS="S";
@@ -196,22 +198,16 @@ public class Menu {
         dueño = teclado.nextLine();
         System.out.println("Descripcion de la Carga: ");
         descripcion = teclado.nextLine();
+        int numero;
+        System.out.println("Nombre del Puerto de Origen: ");
+        listaPuertos();
+        numero = ingresarInt();
+        destino.copy(puertosExistentes.get(numero));
         
-        do{
-            System.out.println("Nombre del Puerto de Origen: ");
-            puerto = teclado.nextLine();
-            if (comparaPuerto(puerto)==-1)
-                System.out.println("Lo sentimos, ese puerto no Existe.");
-        } while (comparaPuerto(puerto)==-1);
-        origen.copy(puertosExistentes.get(comparaPuerto(puerto)));
-        
-        do{
-            System.out.println("Nombre del Puerto de Destino: ");
-            puerto = teclado.nextLine();
-            if (comparaPuerto(puerto)==-1)
-                System.out.println("Lo sentimos, ese puerto no Existe.");
-        } while (comparaPuerto(puerto)==-1);
-        destino.copy(puertosExistentes.get(comparaPuerto(puerto)));
+        System.out.println("Nombre del Puerto de Destino: ");
+        listaPuertos();
+        numero = ingresarInt();
+        destino.copy(puertosExistentes.get(numero));
         
         for (Barco barco:barcosExistentes){
             b1 = false; b2 = false;
@@ -516,9 +512,14 @@ public class Menu {
     * Por El Usuario Previamente.
     */
     static void c1(){
+        int numero;
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tPuertos Registrados: ");
         listaPuertos();
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("Ingrese el numero del puerto que desea consultar...");
+        numero=ingresarInt();
+        System.out.println(puertosExistentes.get(numero-1));
     }
     
    /**
