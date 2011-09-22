@@ -62,4 +62,9 @@ public class Puerto implements Serializable{
         coordenadaNS = puertito.coordenadaNS; NS = puertito.NS;
         coordenadaEO = puertito.coordenadaEO; EO = puertito.EO;
     }
+    @Override
+    public String toString(){
+        String info=nombre+ " se ubica en el pais: "+pais+" con las coordenadas: "+coordenadaNS+NS+ " y "+ coordenadaEO+EO;
+        return info;
+    }
 }
