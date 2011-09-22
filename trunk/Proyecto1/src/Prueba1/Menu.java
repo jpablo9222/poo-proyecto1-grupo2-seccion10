@@ -783,6 +783,17 @@ public class Menu {
     * Método que Muestra el Menu Principal del Programa
     */
     public static void main(String[] args){
+        try {
+             FileInputStream SP = new FileInputStream("SP-G2.dat");
+             ObjectInputStream is = new ObjectInputStream(SP);
+             barcosExistentes = (ArrayList<Barco>) is.readObject();
+             puertosExistentes = (ArrayList<Puerto>) is.readObject();
+             cargasExistentes = (ArrayList<Carga>) is.readObject();
+             rutasExistentes = (ArrayList<Ruta>) is.readObject();
+             is.close();
+        } catch (Exception e) {
+            
+        }
         int opcion=0; boolean seguro = false; String op;
         System.out.println("\tBienvenido");
         while (opcion!=6 && !seguro){
@@ -842,6 +853,17 @@ public class Menu {
                    }
                    break;
            }
+        }
+        try {
+             FileOutputStream sp = new FileOutputStream("SP-G2.dat");
+             ObjectOutputStream os = new ObjectOutputStream(sp);
+             os.writeObject(barcosExistentes);
+             os.writeObject(puertosExistentes);
+             os.writeObject(cargasExistentes);
+             os.writeObject(rutasExistentes);
+             os.close();
+        } catch (Exception e) {
+            
         }
     }
     
