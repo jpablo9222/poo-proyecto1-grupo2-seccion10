@@ -385,6 +385,7 @@ public class Menu {
         fechaMenor.set(3000, 12, 1, 0, 0, 0);
         System.out.println("\n-------------------------------------------------");
         System.out.println("\tArribo a un Puerto");
+        // Encuentra La Fecha Más Pequeñas de todas las Ingresadas.
         for (int w=0; w<barcosExistentes.size(); w++){
             if (!barcosExistentes.get(w).getRuta().getFechaA().isEmpty()){
                 if (barcosExistentes.get(w).getRuta().getFechaA().get(0).before(fechaMenor)){
@@ -393,7 +394,7 @@ public class Menu {
                 encontrado = true;
             }
         }
-        
+        // Evalua Si Hay Rutas Por Simular
         if (!encontrado){
             System.out.println("Todos los Barcos Han Llegado a su Destino Previamente");
             do{
@@ -406,24 +407,26 @@ public class Menu {
         }
         System.out.println("\nEn esta sección se Calculan todos los Cargues y Descargues automáticamente");
         System.out.println("\nIngrese la Fecha Actual: ");
-        
+        // Pide Fecha Limite a Simular.
         fecha = ingresarFecha();
         if (fecha.before(fechaMenor)){
             System.out.println("Lo sentimos, a tal Fecha no hay actividad alguna.");
         } else {
             for (Barco barco:barcosExistentes){
+                // Revisa que Barcos Poseen Cargas Programadas
                 if (!barco.getCargaProg().isEmpty()){
                     for (Calendar fecha2:barco.getRuta().getFechaA()){
                         if (fecha2.before(fecha)){
                             x = barco.getRuta().getFechaA().indexOf(fecha2);
                             System.out.println("\nArribo del Barco: " + barco.getNombre());
                             System.out.println("Fecha: " + date_format.format(fecha2.getTime())+" - Puerto: " + barco.getRuta().getPuerto().get(x).getNombrePuerto());
-                            // Descargue
+                            // Proceso de Descargue
                             for (Carga carga:barco.getCargaProg()){
                                 if (carga.getDestino().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
                                     System.out.println("Descargue:");
                                     System.out.println("- Codigo: " + carga.getCodCarga() + ", Descripcion: " + carga.getDescripcion() + ".");
                                     System.out.println("  Peso: " + carga.getPeso() + ", Propietario: " + carga.getDueño() + ".");
+                                    // Se Eliminan Las Cargas Descargas
                                     for (Contenedor cont:barco.getContenedores()){
                                         for(Carga charge:cont.getCarga()){
                                             if (charge.getCodCarga()==carga.getCodCarga()){
@@ -438,7 +441,8 @@ public class Menu {
                                     }
                                 }
                             }
-                            // Consolidar Carga de Nuevo
+                            // Se Consolida la Carga Para Compactarla y Liberar Contenedores
+                            // Se Vacian Todas las Cargas a una Lista Temporal
                             for (Contenedor cont:barco.getContenedores()){
                                 for (Carga charge:cont.getCarga()){
                                     temp.add(charge);
@@ -453,6 +457,7 @@ public class Menu {
                                     }
                                 }
                             }
+                            // Se Vuelven a Cargar los Contenedores
                             int f = 0;
                             for (Carga charge:temp){
                                 y = (barco.getContenedores().get(f).getCapacidad()-barco.getContenedores().get(f).getCargaActual());
@@ -469,7 +474,7 @@ public class Menu {
                                     barco.getContenedores().get(f).setCargaActual(barco.getContenedores().get(f).getCargaActual()+charge.getPeso());
                                 }
                             }
-                            // Cargue
+                            // Se Realiza Proceso de Cargue 
                             f = 0;
                             for (Carga carga:barco.getCargaProg()){
                                 if (carga.getOrigen().getNombrePuerto().equals(barco.getRuta().getPuerto().get(x).getNombrePuerto())){
@@ -504,6 +509,7 @@ public class Menu {
                             index.add(x);
                         }  
                     }
+                    // Se Sacan 
                     for (int d=(index.size()-1); d>=0; d--){
                         barco.getRuta().getFechaA().remove(barco.getRuta().getFechaA().get(index.get(d)));
                         barco.getRuta().getPuerto().remove(barco.getRuta().getPuerto().get(index.get(d)));
