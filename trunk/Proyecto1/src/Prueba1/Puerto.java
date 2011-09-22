@@ -4,7 +4,8 @@ package Prueba1;
  *
  * @author Juan Pablo
  */
-public class Puerto {
+import java.io.Serializable;
+public class Puerto implements Serializable{
     private String nombre, pais, EO,NS;
     private float coordenadaNS, coordenadaEO;
     

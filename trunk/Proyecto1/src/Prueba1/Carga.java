@@ -4,7 +4,8 @@ package Prueba1;
  *
  * @author Juan Pablo
  */
-public class Carga {
+import java.io.Serializable;
+public class Carga implements Serializable{
     private int codCarga;
     private String dueño, descripcion;
     private float peso;

@@ -4,9 +4,10 @@ package Prueba1;
  *
  * @author Juan Pablo
  */
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-public class Ruta {
+public class Ruta implements Serializable{
     private int codRuta;
     private ArrayList<Puerto> puertos;
     private ArrayList<Calendar> fecha_arribo;

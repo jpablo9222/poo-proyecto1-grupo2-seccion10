@@ -5,7 +5,8 @@ package Prueba1;
  * @author Juan Pablo
  */
 import java.util.ArrayList;
-public class Barco {
+import java.io.Serializable;
+public class Barco implements Serializable{
     private String naviera, pais_naviera, nombre, capitan;
     private float capacidad_maxima;
     private int capacidad_contenedores;
