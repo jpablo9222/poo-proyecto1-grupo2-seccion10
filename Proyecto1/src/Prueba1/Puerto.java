@@ -65,8 +65,8 @@ public class Puerto implements Serializable{
   
     @Override
    /**
-    * Método que Devuelve el Pais Donde se Ubica el Puerto.
-    * @return pais Pais Donde se Ubica el Puerto.
+    * Método que Devuelve el Mensaje con la información de un Puerto.
+    * @return info Mensaje con la Información de los Atributos de Un Puerto.
     */
     public String toString(){
         String info= "El Puerto "+nombre+ " se Ubica en el Pais: "+pais+" con las coordenadas: "+coordenadaNS+NS+ " y "+ coordenadaEO+EO;
