@@ -4,8 +4,9 @@ package Prueba1;
  *
  * @author Juan Pablo
  */
+import java.io.Serializable;
 import java.util.ArrayList;
-public class Contenedor {
+public class Contenedor implements Serializable{
     private float capacidad_maxima, cargaActual;
     private ArrayList<Carga> cargas;
     private int codContenedor = 2011001;
